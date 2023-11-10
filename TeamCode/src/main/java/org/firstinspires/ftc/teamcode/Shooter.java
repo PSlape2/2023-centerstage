@@ -10,7 +10,7 @@ public class Shooter extends LinearOpMode {
 
     private Servo servo1;
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() {
         servo1 = hardwareMap.get(Servo.class, "shooter");
 
         while (opModeIsActive()) {

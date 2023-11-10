@@ -20,7 +20,7 @@ public class Grabber extends LinearOpMode {
     }
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() {
         if(gamepad2.a) {
 
             if(!state) {
