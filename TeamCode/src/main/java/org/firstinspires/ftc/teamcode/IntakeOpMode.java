@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
-public class ThirdLinearOpMode extends LinearOpMode {
+public class IntakeOpMode extends LinearOpMode {
     @Override
     public void runOpMode() {
         Servo servo1 = hardwareMap.get(Servo.class, "Servo1");

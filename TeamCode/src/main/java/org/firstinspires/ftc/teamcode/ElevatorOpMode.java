@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @TeleOp
-public class FifthJavaOpMode extends LinearOpMode {
+public class ElevatorOpMode extends LinearOpMode {
     private final int MAX_VALUE = 1000;
     // initializes float that = 10000
     private final int MIN_VALUE = 0;
