@@ -10,6 +10,7 @@ public class MainLinearOpMode extends LinearOpMode {
     private Grabber grabber;
     private Shooter shooter;
     private IntakeJavaOpMode intake;
+    private Drivetrain drivetrain;
 
     @Override
     public void runOpMode() {
@@ -18,6 +19,7 @@ public class MainLinearOpMode extends LinearOpMode {
         grabber=new Grabber();
         shooter=new Shooter();
         intake=new IntakeJavaOpMode();
+        drivetrain = new Drivetrain();
         waitForStart();
         while(opModeIsActive()) {
             climb.runOpMode();
@@ -25,6 +27,7 @@ public class MainLinearOpMode extends LinearOpMode {
             grabber.runOpMode();
             shooter.runOpMode();
             intake.runOpMode();
+            drivetrain.runOpMode();
         }
     }
 }
