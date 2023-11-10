@@ -32,7 +32,6 @@ public class FifthJavaOpMode extends LinearOpMode {
                 elevator.setPower(0.3);
             }
                 // if the motor position is greater or equal to 1000 and the joystick value is less than 0 set the motor power  to the joystick value
-            }
         }
     }
 }
