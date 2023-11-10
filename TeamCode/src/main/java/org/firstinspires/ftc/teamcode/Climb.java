@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class Climb extends LinearOpMode {
     private DcMotor DcMotor1;
     private DcMotor DcMotor2;
-
     // TODO: Change the extended constant to the proper value
     private static final int EXTENDED = 1000;
     // TODO: Change the retracted constant to the proper value
@@ -19,9 +18,9 @@ public class Climb extends LinearOpMode {
         DcMotor1 = hardwareMap.get(DcMotor.class, "DcMotor1" );
         DcMotor2 = hardwareMap.get(DcMotor.class, "DcMotor2" );
 
-        double constPower = 1; //TODO: What is "use final"? Or what is a good value for constant power?
+        double constPower = 1; //TODO: What is "use final"? Or what is a good value for constant power? //sets constant power to 1 on both motors
 
-        boolean last = false;
+        boolean last = false; //show false if hand is retracted
 
         waitForStart();
 

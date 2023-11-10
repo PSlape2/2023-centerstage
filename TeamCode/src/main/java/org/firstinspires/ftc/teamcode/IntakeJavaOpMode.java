@@ -7,24 +7,24 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp
 public class IntakeJavaOpMode extends LinearOpMode {
 
-    private Servo servo1 = null;
-    private Servo servo2 = null;
-    private Servo servo3 = null;
-    private Servo servo4 = null;
-    private Servo servo5 = null;
-    private Servo servo6 = null;
+    private Servo servo1 = null; //servo null until activated
+    private Servo servo2 = null; //servo null until activated
+    private Servo servo3 = null; //servo null until activated
+    private Servo servo4 = null; //servo null until activated
+    private Servo servo5 = null; //servo null until activated
+    private Servo servo6 = null; //servo null until activated
 
     @Override
     public void runOpMode() {
-        servo1 = hardwareMap.get(Servo.class, "Servo1" );
-        servo2 = hardwareMap.get(Servo.class, "Servo2" );
-        servo3 = hardwareMap.get(Servo.class, "Servo3" );
-        servo4 = hardwareMap.get(Servo.class, "Servo4" );
-        servo5 = hardwareMap.get(Servo.class, "Servo5" );
-        servo6 = hardwareMap.get(Servo.class, "Servo6" );
-        double constPower = 1; //TODO: What is "use final"? Or what is a good value for constant power?
+        servo1 = hardwareMap.get(Servo.class, "Servo1" ); //gets servo assigned
+        servo2 = hardwareMap.get(Servo.class, "Servo2" ); //gets servo assigned
+        servo3 = hardwareMap.get(Servo.class, "Servo3" ); //gets servo assigned
+        servo4 = hardwareMap.get(Servo.class, "Servo4" ); //gets servo assigned
+        servo5 = hardwareMap.get(Servo.class, "Servo5" ); //gets servo assigned
+        servo6 = hardwareMap.get(Servo.class, "Servo6" ); //gets servo assigned
+        double constPower = 1; //TODO: What is "use final"? Or what is a good value for constant power? //sets constant to 1
 
-        boolean last = false;
+        boolean last = false; //intializes the boolean; is false from start; about state of servos
 
         while (opModeIsActive()) {
 
