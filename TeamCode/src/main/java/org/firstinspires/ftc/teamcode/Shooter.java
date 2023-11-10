@@ -1,25 +1,20 @@
 package org.firstinspires.ftc.teamcode;
 
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp
-public class Shooter extends LinearOpMode {
+public class Shooter {
 
     private Servo servo1;
     @Override
     public void runOpMode() {
         servo1 = hardwareMap.get(Servo.class, "shooter");
 
-        while (opModeIsActive()) {
-            if (gamepad2.x){
-                servo1.setPosition(Servo.MAX_POSITION);
-            } else {
-                servo1.setPosition(Servo.MIN_POSITION);
-            }
-        }
+    public Shooter(Servo servo1) {
+        this.servo1 = servo1;
+    }
+    public void setPosition(double pos) {
+        servo1.setPosition(pos);
     }
 }
 

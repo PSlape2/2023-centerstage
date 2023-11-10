@@ -1,50 +1,31 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp
-public class Climb extends LinearOpMode {
+public class Climb {
     private DcMotor DcMotor1;
     private DcMotor DcMotor2;
     // TODO: Change the extended constant to the proper value
-    private static final int EXTENDED = 1000;
-    // TODO: Change the retracted constant to the proper value
-    private static final int RETRACTED = 0;
 
-    @Override
-    public void runOpMode() {
-        DcMotor1 = hardwareMap.get(DcMotor.class, "DcMotor1" );
-        DcMotor2 = hardwareMap.get(DcMotor.class, "DcMotor2" );
 
-        double constPower = 1; //TODO: What is "use final"? Or what is a good value for constant power? //sets constant power to 1 on both motors
-
-        boolean last = false; //show false if hand is retracted
-
-        waitForStart();
-
-        while (opModeIsActive()) {
-            if (gamepad2.dpad_up) {
-                DcMotor1.setTargetPosition(EXTENDED);
-                DcMotor2.setTargetPosition(EXTENDED);
-            } else if (gamepad2.dpad_down) {
-                DcMotor1.setTargetPosition(RETRACTED);
-                DcMotor2.setTargetPosition(RETRACTED);
-            }
-
-            if (gamepad2.dpad_up || gamepad2.dpad_down) {
-                DcMotor1.setPower(0.3);
-                DcMotor2.setPower(0.3);
-            } else {
-                DcMotor1.setPower(0);
-                DcMotor2.setPower(0);
-            }
-
-            DcMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            DcMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
+    public Climb(DcMotor mot1, DcMotor mot2) {
+        DcMotor1 = mot1;
+        DcMotor2 = mot2;
     }
+    public void setPower(double pow) {
+        DcMotor1.setPower(pow);
+        DcMotor2.setPower(pow);
+    }
+
+    public void stopMotor() {
+        DcMotor1.setPower(0);
+        DcMotor2.setPower(0);
+    }
+    public void setTargetPos(int pos) {
+        DcMotor1.setTargetPosition(pos);
+        DcMotor2.setTargetPosition(pos);
+    }
+
 }
 /*
 TODO:
