@@ -14,12 +14,17 @@ public class Elevator {
         // sets motor variable using hardware map then sets motor   to Run_using_encoder
     }
 
-    public int getPosition() {
-        return motor.getCurrentPosition();
+    public int getExtendedPos() {
+        return extendMotor.getCurrentPosition();
     }
-    public void setTargetPosition(int targetPosition) {
-        motor.setTargetPosition(targetPosition);
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    public void setHeight(int targetPosition) {
+        elevatorMotor.setTargetPosition(targetPosition);
+        elevatorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+
+    public void setExtension(int targetPosition) {
+        extendMotor.setTargetPosition(targetPosition);
+        extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     public void setPower(double pow) {
