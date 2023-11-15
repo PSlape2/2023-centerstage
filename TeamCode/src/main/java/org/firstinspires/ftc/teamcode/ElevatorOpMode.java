@@ -16,6 +16,8 @@ public class ElevatorOpMode extends LinearOpMode {
         DcMotor motor2 = hardwareMap.get(DcMotor.class, "Elevator Extend Motor");
         Elevator elevator = new Elevator(motor, motor2);
 
+        waitForStart();
+
         while (opModeIsActive()) {
             // while the opmode is active make new float that takes the left stick y value
             float updated = -gamepad2.left_stick_y;
