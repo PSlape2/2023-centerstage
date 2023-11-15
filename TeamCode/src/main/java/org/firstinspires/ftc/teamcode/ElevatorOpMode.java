@@ -19,8 +19,6 @@ public class ElevatorOpMode extends LinearOpMode {
         while (opModeIsActive()) {
             // while the opmode is active make new float that takes the left stick y value
             float updated = -gamepad2.left_stick_y;
-            float position = elevator.getElevatorPos();
-            //makes new float that takes the motors position
 
             if (updated > 0)  {
                 elevator.setHeight(MAX_VALUE, 0.3 * updated);
