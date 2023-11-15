@@ -13,23 +13,21 @@ public class ElevatorOpMode extends LinearOpMode {
     //initializes float that = 0
     public void runOpMode() throws InterruptedException {
         DcMotor motor = hardwareMap.get(DcMotor.class, "Elevator Motor");
-
-        Elevator elevator = new Elevator(motor);
+        DcMotor motor2 = hardwareMap.get(DcMotor.class, "Elevator Extend Motor");
+        Elevator elevator = new Elevator(motor, motor2);
 
         while (opModeIsActive()) {
             // while the opmode is active make new float that takes the left stick y value
             float updated = -gamepad2.left_stick_y;
-            float position = elevator.getPosition();
+            float position = elevator.getElevatorPos();
             //makes new float that takes the motors position
 
             if (updated > 0)  {
-                elevator.setTargetPosition(MAX_VALUE);
-                elevator.setPower(0.3);
+                elevator.setHeight(MAX_VALUE, 0.3 * updated);
             }
                 // if the motor position is less than  or equal to 0 and the joystick value is greater than 0 set the motor power to the joystick value
             if (updated < 0) {
-                elevator.setTargetPosition(MIN_VALUE);
-                elevator.setPower(0.3);
+                elevator.setHeight(MIN_VALUE, 0.3 * updated);
             }
                 // if the motor position is greater or equal to 1000 and the joystick value is less than 0 set the motor power  to the joystick value
         }
