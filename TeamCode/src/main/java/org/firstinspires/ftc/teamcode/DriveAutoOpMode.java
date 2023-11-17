@@ -9,7 +9,10 @@ import com.qualcomm.robotcore.hardware.IMU;
 public class DriveAutoOpMode extends LinearOpMode {
     private static final double kDriveSpeed = 0.6;
     private static final double kTurnSpeed = 0.5;
+    private static final double kElevatorExtensionSpeed = 0.3;
+    private static final double kElevatorAngleSpeed = 0.3;
     private Drivetrain drive;
+    private Elevator elevator;
     @Override
     public void runOpMode() throws InterruptedException {
         drive = new Drivetrain(
@@ -19,9 +22,21 @@ public class DriveAutoOpMode extends LinearOpMode {
                 hardwareMap.dcMotor.get("backRightMotor"),
                 hardwareMap.get(IMU.class, "imu")
         );
+        elevator = new Elevator(
+                hardwareMap.get(DcMotor.class, "Extend Motor"),
+                hardwareMap.get(DcMotor.class, "Angle Motor")
+        );
+
 
         waitForStart();
 
         drive.encoderDrive(kDriveSpeed, 10, 10, 5);
+
+                // 28 counts per revolution
+        elevator.setAngle(7, kElevatorAngleSpeed);
+        elevator.setExtension(7, kElevatorExtensionSpeed);
+
+        elevator.setExtension(0, kElevatorExtensionSpeed);
+        elevator.setAngle(0, kElevatorAngleSpeed);
     }
 }

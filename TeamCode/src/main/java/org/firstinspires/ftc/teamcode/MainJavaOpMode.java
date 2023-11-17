@@ -11,13 +11,18 @@ public class MainJavaOpMode extends LinearOpMode {
     private static final int EXTENDED = 11000;
     // TODO: Change the retracted constant to the proper value
     private static final int RETRACTED = 0;
+    private final int kMaxExtension = 1000;
+    private final int kMinExtension = 0;
+    private final int kMaxAngle = 1000;
+    private final int kMinAngle = 0;
     private final int ELEVATOR_MAX = 1000;
     // initializes float that = 10000
     private final int ELEVATOR_MIN = 0;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        DcMotor elevatorMotor = hardwareMap.get(DcMotor.class, "ElevatorMotor");
+        DcMotor extendMotor = hardwareMap.get(DcMotor.class, "Extend Motor");
+        DcMotor angleMotor = hardwareMap.get(DcMotor.class, "Angle Motor");
         DcMotor ClimbLeft = hardwareMap.get(DcMotor.class, "ClimbLeftMotor");
         DcMotor ClimbRight = hardwareMap.get(DcMotor.class, "ClimbRightMotor");
         Servo ShooterServo = hardwareMap.get(Servo.class, "ShooterServo");
@@ -29,7 +34,7 @@ public class MainJavaOpMode extends LinearOpMode {
         IMU imu = hardwareMap.get(IMU.class, "imu");
 
         Drivetrain drivetrain = new Drivetrain(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor, imu);
-        Elevator elevator = new Elevator(elevatorMotor);
+        Elevator elevator = new Elevator(extendMotor, angleMotor);
         Climb climb = new Climb(ClimbLeft, ClimbRight);
         Grabber grabber = new Grabber(GrabberServo);
         Shooter shooter = new Shooter(ShooterServo);
@@ -75,14 +80,28 @@ public class MainJavaOpMode extends LinearOpMode {
             }
 
             // ELEVATOR CONTROLS
-            if (-gamepad2.left_stick_y > 0) {
-                elevator.setHeight(ELEVATOR_MAX, 0.3 * -gamepad2.left_stick_y);
+            // while the opmode is active make new float that takes the left stick y value
+            float extendInput = -gamepad2.left_stick_y;
+            float angleInput = -gamepad2.right_stick_y;
+
+            if (extendInput > 0.1)  {
+                elevator.setExtension(kMaxExtension, 0.3);
             }
             // if the motor position is less than  or equal to 0 and the joystick value is greater than 0 set the motor power to the joystick value
-            else if (-gamepad2.left_stick_y < 0) {
-                elevator.setHeight(ELEVATOR_MIN, 0.3 * -gamepad2.left_stick_y);
+            else if (extendInput < -0.1) {
+                elevator.setExtension(kMinExtension, 0.3);
+            }
+            else {
+                elevator.setExtension(elevator.getAnglePos(), 0.2);
+            }
+            // if the motor position is greater or equal to 1000 and the joystick value is less than 0 set the motor power  to the joystick value
+
+            if(angleInput > 0.1) {
+                elevator.setAngle(kMaxAngle, 0.3);
+            } else if(angleInput < -0.1) {
+                elevator.setAngle(kMinAngle, 0.3);
             } else {
-                elevator.setHeight(elevator.getElevatorPos(), 0);
+                elevator.setAngle(elevator.getAnglePos(), 0.3);
             }
         }
     }

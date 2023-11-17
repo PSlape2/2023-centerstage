@@ -12,7 +12,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 // FIELD CENTRIC
 public class Drivetrain {
-    private static final double COUNTS_PER_INCH = 21.99114;
+    private static final double COUNTS_PER_INCH = 21.99114; // 28 counts per revolution
     private DcMotor frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor;
     private IMU imu;
     public Drivetrain(DcMotor frontLeftMotorIn, DcMotor backLeftMotorIn, DcMotor frontRightMotorIn, DcMotor backRightMotorIn, IMU imuIn) {
@@ -24,8 +24,6 @@ public class Drivetrain {
 
         frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-
-
 
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,
