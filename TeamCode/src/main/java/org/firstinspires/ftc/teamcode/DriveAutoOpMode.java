@@ -21,5 +21,7 @@ public class DriveAutoOpMode extends LinearOpMode {
         );
 
         waitForStart();
+
+        drive.encoderDrive(kDriveSpeed, 10, 10, 5);
     }
 }
