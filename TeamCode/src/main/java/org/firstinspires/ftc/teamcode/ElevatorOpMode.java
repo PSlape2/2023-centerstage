@@ -28,7 +28,6 @@ public class ElevatorOpMode extends LinearOpMode {
             else if (updated < 0) {
                 elevator.setHeight(MIN_VALUE, 0.3 * updated);
             }
-
             else {
                 elevator.setHeight(elevator.getElevatorPos(), 0);
             }
