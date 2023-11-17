@@ -13,8 +13,8 @@ public class Climb {
         DcMotor2 = mot2;
     }
     public void setPower(double pow) {
-        DcMotor1.setPower(pow);
-        DcMotor2.setPower(pow);
+        DcMotor1.setPower(pow); // LEFT MOTOR
+        DcMotor2.setPower(pow); // RIGHT MOTOR
     }
 
     public void stopMotor() {
@@ -24,6 +24,9 @@ public class Climb {
     public void setTargetPos(int pos) {
         DcMotor1.setTargetPosition(pos);
         DcMotor2.setTargetPosition(pos);
+
+        DcMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        DcMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
 }
