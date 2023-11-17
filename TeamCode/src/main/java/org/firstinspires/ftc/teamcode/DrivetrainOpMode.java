@@ -1,9 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
-
+@TeleOp
 public class DrivetrainOpMode extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
@@ -17,16 +18,21 @@ public class DrivetrainOpMode extends LinearOpMode {
 
         if (isStopRequested()) return;
 
+        waitForStart();
+
         while (opModeIsActive()) {
             double y = -gamepad1.left_stick_y;
-            double x = gamepad1.left_stick_x;
+//            double x = gamepad1.left_stick_x;
+            double x = gamepad1.left_stick_x * 1.1;
             double rx = gamepad1.right_stick_x;
 
-            if (gamepad1.options) {
+            if (gamepad1.options || gamepad1.start) {
                 drivetrain.imuResetYaw();
-            } else if (y != 0 || x != 0 || rx != 0) {
-                drivetrain.move(y, x, rx);
+                telemetry.addLine("IMU Reset!");
+                telemetry.update();
             }
+
+            drivetrain.move(y, x, rx);
         }
     }
 }

@@ -25,7 +25,7 @@ public class MainJavaOpMode extends LinearOpMode {
         DcMotor angleMotor = hardwareMap.get(DcMotor.class, "Angle Motor");
         DcMotor ClimbLeft = hardwareMap.get(DcMotor.class, "ClimbLeftMotor");
         DcMotor ClimbRight = hardwareMap.get(DcMotor.class, "ClimbRightMotor");
-        Servo ShooterServo = hardwareMap.get(Servo.class, "ShooterServo");
+//        Servo ShooterServo = hardwareMap.get(Servo.class, "ShooterServo");
         Servo GrabberServo = hardwareMap.get(Servo.class, "GrabberServo");
         DcMotor frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
         DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
@@ -37,7 +37,7 @@ public class MainJavaOpMode extends LinearOpMode {
         Elevator elevator = new Elevator(extendMotor, angleMotor);
         Climb climb = new Climb(ClimbLeft, ClimbRight);
         Grabber grabber = new Grabber(GrabberServo);
-        Shooter shooter = new Shooter(ShooterServo);
+//        Shooter shooter = new Shooter(ShooterServo);
 
         waitForStart();
 
@@ -50,9 +50,9 @@ public class MainJavaOpMode extends LinearOpMode {
             double rx = gamepad1.right_stick_x;
             if (gamepad1.options) {
                 drivetrain.imuResetYaw();
-            } else if (y != 0 || x != 0 || rx != 0) {
-                drivetrain.move(y, x, rx);
             }
+
+            drivetrain.move(y, x, rx);
 
             // GRABBER CONTROLS
             if (gamepad2.a) {
@@ -62,22 +62,31 @@ public class MainJavaOpMode extends LinearOpMode {
             }
 
             // CLIMB CONTROLS
-            if (gamepad2.dpad_up) {
+            telemetry.addData("Left Motor Position", climb.getLeftPosition());
+            telemetry.addData("Right Motor Position", climb.getRightPosition());
+
+            if (gamepad2.back) {
+                climb.resetEncoders();
+            } else if (gamepad2.dpad_up && gamepad2.left_bumper) {
+                climb.forceMove(true);
+            } else if (gamepad2.dpad_down && gamepad2.left_bumper) {
+                climb.forceMove(false);
+            } else if (gamepad2.dpad_up) {
                 climb.setTargetPos(EXTENDED);
-                climb.setPower(0.3);
+                climb.setPower(1);
             } else if (gamepad2.dpad_down) {
                 climb.setTargetPos(RETRACTED);
-                climb.setPower(0.3);
+                climb.setPower(1);
             } else {
                 climb.stopMotor();
             }
 
             // SHOOTER CONTROLS - not using for 1st competition
-            if (gamepad2.x) {
-                shooter.setPosition(Servo.MAX_POSITION);
-            } else {
-                shooter.setPosition(Servo.MIN_POSITION);
-            }
+//            if (gamepad2.x) {
+//                shooter.setPosition(Servo.MAX_POSITION);
+//            } else {
+//                shooter.setPosition(Servo.MIN_POSITION);
+//            }
 
             // ELEVATOR CONTROLS
             // while the opmode is active make new float that takes the left stick y value
@@ -91,9 +100,9 @@ public class MainJavaOpMode extends LinearOpMode {
             else if (extendInput < -0.1) {
                 elevator.setExtension(kMinExtension, 0.3);
             }
-            else {
-                elevator.setExtension(elevator.getAnglePos(), 0.2);
-            }
+//            else {
+//                elevator.setExtension(elevator.getAnglePos(), 0.2);
+//            }
             // if the motor position is greater or equal to 1000 and the joystick value is less than 0 set the motor power  to the joystick value
 
             if(angleInput > 0.1) {
@@ -103,6 +112,8 @@ public class MainJavaOpMode extends LinearOpMode {
             } else {
                 elevator.setAngle(elevator.getAnglePos(), 0.3);
             }
+
+            telemetry.update();
         }
     }
 }

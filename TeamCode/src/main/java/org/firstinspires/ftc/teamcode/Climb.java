@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class Climb {
     private DcMotor DcMotor1;
@@ -29,6 +30,34 @@ public class Climb {
         DcMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
+    public void forceMove(boolean movesUp) {
+        DcMotor1.setPower(1);
+        DcMotor2.setPower(1);
+
+        DcMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        DcMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        if (movesUp) {
+            DcMotor1.setDirection(DcMotorSimple.Direction.FORWARD);
+            DcMotor2.setDirection(DcMotorSimple.Direction.FORWARD);
+        } else {
+            DcMotor1.setDirection(DcMotorSimple.Direction.REVERSE);
+            DcMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
+        }
+    }
+
+    public int getLeftPosition() {
+        return DcMotor1.getCurrentPosition();
+    }
+
+    public int getRightPosition() {
+        return DcMotor2.getCurrentPosition();
+    }
+
+    public void resetEncoders() {
+        DcMotor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        DcMotor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
 }
 /*
 TODO:

@@ -9,9 +9,6 @@ public class Elevator {
     public Elevator(DcMotor extendMotor, DcMotor angleMotor) {
         this.extendMotor = extendMotor;
         this.angleMotor = angleMotor;
-
-        extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        angleMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     public int getExtensionPos() {
@@ -22,10 +19,12 @@ public class Elevator {
     }
     public void setExtension(int targetPosition, double pow) {
         extendMotor.setTargetPosition(targetPosition);
+        extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         extendMotor.setPower(pow);
     }
     public void setAngle(int targetPos, double pow) {
         angleMotor.setTargetPosition(targetPos);
+        angleMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         angleMotor.setPower(pow);
     }
 
