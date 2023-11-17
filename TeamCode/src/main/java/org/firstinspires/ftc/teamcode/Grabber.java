@@ -10,15 +10,13 @@ public class Grabber {
     private final float MAX_VALUE = 1000;// initializes float, Max Value/Power = 1000
     private final float MIN_VALUE = 0;//initializes float, Minimum Value/Power = 0
     Servo one;
-    Servo two;
 
-    public Grabber(Servo one, Servo two) { //gets two servos, Servo 1 and Servo 2.
+    public Grabber(Servo one) { //gets two servos, Servo 1 and Servo 2.
         this.one = one;
-        this.two = two;
         state = false;
     }
 
-    public boolean getState () {
+    public boolean getState() {
         return state;
     }
 
@@ -27,8 +25,7 @@ public class Grabber {
     }
 
     public void setPosition (int n){
-        position=n;
-
+        one.setPosition(n);
     }
 
 }
