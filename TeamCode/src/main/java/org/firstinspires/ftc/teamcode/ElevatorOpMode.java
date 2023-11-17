@@ -13,8 +13,7 @@ public class ElevatorOpMode extends LinearOpMode {
     //initializes float that = 0
     public void runOpMode() throws InterruptedException {
         DcMotor motor = hardwareMap.get(DcMotor.class, "Elevator Motor");
-        DcMotor motor2 = hardwareMap.get(DcMotor.class, "Elevator Extend Motor");
-        Elevator elevator = new Elevator(motor, motor2);
+        Elevator elevator = new Elevator(motor);
 
         waitForStart();
 
@@ -28,6 +27,9 @@ public class ElevatorOpMode extends LinearOpMode {
                 // if the motor position is less than  or equal to 0 and the joystick value is greater than 0 set the motor power to the joystick value
             if (updated < 0) {
                 elevator.setHeight(MIN_VALUE, 0.3 * updated);
+            }
+            else {
+                elevator.setHeight(elevator.getElevatorPos(), 0);
             }
                 // if the motor position is greater or equal to 1000 and the joystick value is less than 0 set the motor power  to the joystick value
         }
