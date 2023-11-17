@@ -24,7 +24,7 @@ public class Grabber {
         state = stateIn;
     }
 
-    public void setPosition (int n){
+    public void setPosition (double n){
         one.setPosition(n);
     }
 
