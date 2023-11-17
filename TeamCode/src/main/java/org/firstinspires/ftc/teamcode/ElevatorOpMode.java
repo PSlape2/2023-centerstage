@@ -25,7 +25,7 @@ public class ElevatorOpMode extends LinearOpMode {
                 elevator.setHeight(MAX_VALUE, 0.3 * updated);
             }
                 // if the motor position is less than  or equal to 0 and the joystick value is greater than 0 set the motor power to the joystick value
-            if (updated < 0) {
+            else if (updated < 0) {
                 elevator.setHeight(MIN_VALUE, 0.3 * updated);
             }
             else {
