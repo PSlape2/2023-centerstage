@@ -15,8 +15,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 // FIELD CENTRIC
 public class Drivetrain {
     private static final double COUNTS_PER_INCH = 21.99114; // 28 counts per revolution
-    private DcMotor frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor;
-    private IMU imu;
+    private final DcMotor frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor;
+    private final IMU imu;
     private double frontLeftPower, backLeftPower, frontRightPower, backRightPower;
     int driveMode;
 
@@ -54,6 +54,23 @@ public class Drivetrain {
         backLeftMotor.setPower(backLeftPower);
         frontRightMotor.setPower(frontRightPower);
         backRightMotor.setPower(backRightPower);
+    }
+    public void robotCentricMove(double y, double x, double rx, double speed) {
+        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+        double frontLeftPower = (y + x + rx) / denominator;
+        double backLeftPower = (y - x + rx) / denominator;
+        double frontRightPower = (y - x - rx) / denominator;
+        double backRightPower = (y + x - rx) / denominator;
+
+        frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        frontLeftMotor.setPower(frontLeftPower * speed);
+        backLeftMotor.setPower(backLeftPower * speed);
+        frontRightMotor.setPower(frontRightPower * speed);
+        backRightMotor.setPower(backRightPower * speed);
     }
 
     public void move(double x, double y , double rx, double speed) {
@@ -118,6 +135,23 @@ public class Drivetrain {
         backRightMotor.setPower(backRightPower);
         frontLeftMotor.setPower(frontLeftPower);
         backLeftMotor.setPower(backLeftPower);
+    }
+    public void mecanumDrive(double x, double y, double rot, double speed) {
+        double denominator = Math.abs(y) + Math.abs(x) + Math.abs(rot);
+        frontRightPower = (y - x - rot) / denominator;
+        backRightPower = (y + x - rot) / denominator;
+        frontLeftPower = (y + x + rot) / denominator;
+        backLeftPower = (y - x + rot) / denominator;
+
+        frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        frontRightMotor.setPower(frontRightPower * speed);
+        backRightMotor.setPower(backRightPower * speed);
+        frontLeftMotor.setPower(frontLeftPower * speed);
+        backLeftMotor.setPower(backLeftPower * speed);
     }
     public void encoderDrive(double speed, double leftInches, double rightInches, double timeOut) {
 

@@ -3,9 +3,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class Elevator {
-    private DcMotor extendMotor, angleMotor;
+    private final DcMotor extendMotor, angleMotor;
 
-    private static final int MAX_EXTEND = 2600;
+    private static final int MAX_EXTEND = 100000;
     // initializes DC Motor
 
     public Elevator(DcMotor extendMotor, DcMotor angleMotor) {

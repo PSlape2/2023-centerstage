@@ -62,30 +62,42 @@ public class MainJavaOpMode extends LinearOpMode {
             telemetry.addData("imu yaw: ", drivetrain.imuGetYawAngles());
 
             if(mode == 0) {
-                drivetrain.tankDrive(y1, y2);
-                telemetry.addData("Drive Mode: ", "Tank");
-            }  else if(mode == 1) {
                 drivetrain.mecanumDrive(y1, x, rx);
                 telemetry.addData("Drive Mode: ", "Mecanum");
+            }  else if(mode == 1) {
+                drivetrain.tankDrive(y1, y2);
+                telemetry.addData("Drive Mode: ", "Tank");
             } else if(mode == 2) {
                 drivetrain.move(y1, x, rx, 1);
                 telemetry.addData("Drive Mode: ", "Field-Centric 100%");
             } else if (mode == 3) {
                 drivetrain.move(y1, x, rx, 0.5);
                 telemetry.addData("Drive Mode: ", "Field-Centric 50%");
-            } else {
+            } else if(mode == 4){
                 drivetrain.robotCentricMove(y1, x, rx);
                 telemetry.addData("Drive Mode: ", "Robot-Centric");
+            } else if(mode == 5){
+                drivetrain.robotCentricMove(y1, x, rx, 0.5);
+                telemetry.addData("Drive Mode: ", "Robot Centric 50%");
+            } else {
+                drivetrain.robotCentricMove(y1, x, rx, 0.25);
+                telemetry.addData("Drive Mode: ", "Robot Centric 25%");
             }
 
             if (gamepad1.triangle) {
-                if (drivetrain.getMode() + 1 > 4) {
-                    drivetrain.setMode(0);
+                if (drivetrain.getMode() == 4) {
+                    drivetrain.setMode(5);
+                } else if(drivetrain.getMode() == 5){
+                    drivetrain.setMode(6);
                 } else {
-                    drivetrain.setMode(drivetrain.getMode() + 1);
+                    drivetrain.setMode(4);
                 }
                 sleep(100);
             }
+
+            //telemetry.addData("Pusher Position", grabber.getPusher());
+
+            //telemetry.addData("Intake Position", grabber.getIntake());
 
             // GRABBER CONTROLS
             if (gamepad2.a) {
@@ -135,20 +147,20 @@ public class MainJavaOpMode extends LinearOpMode {
             float angleInput = -gamepad2.right_stick_y;
 
             if (extendInput > 0.1)  {
-                elevator.setExtension(MAX_EXTEND, 0.3);
+                elevator.setExtension(MAX_EXTEND, 0.45);
             } else if (extendInput < -0.1) {
-                elevator.setExtension(MIN_EXTEND, 0.3);
+                elevator.setExtension(MIN_EXTEND, 0.45);
             } else {
                 elevator.stopExtend();
             }
 //
             telemetry.addData("Elevator Extend Position: ", elevator.getExtensionPos());
-            telemetry.addData("Elevator Anlge Position: ", elevator.getAnglePos());
+            telemetry.addData("Elevator Angle Position: ", elevator.getAnglePos());
 
             if(angleInput > 0.1) {
-                elevator.setAngle(MAX_ANGLE, 0.3);
+                elevator.setAngle(MAX_ANGLE, 0.45);
             } else if(angleInput < -0.1) {
-                elevator.setAngle(MIN_ANGLE, 0.3);
+                elevator.setAngle(MIN_ANGLE, 0.45);
             } else {
                 elevator.stopAngle();
             }

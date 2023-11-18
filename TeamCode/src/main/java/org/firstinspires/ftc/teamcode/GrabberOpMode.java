@@ -13,16 +13,5 @@ public class GrabberOpMode extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        if(gamepad2.a) {
-
-            if(!grabber.getState()) {
-
-                grabber.setState(true);
-            }
-        } else {
-
-            grabber.setState(false);
-        }
-
     }
 }

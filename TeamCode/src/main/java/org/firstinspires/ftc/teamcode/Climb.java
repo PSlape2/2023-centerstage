@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class Climb {
-    private DcMotor DcMotor1;
-    private DcMotor DcMotor2;
+    private final DcMotor DcMotor1;
+    private final DcMotor DcMotor2;
     // TODO: Change the extended constant to the proper value
 
 
