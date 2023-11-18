@@ -7,8 +7,8 @@ public class Grabber {
 
     private int position; // 0- 270
     private boolean state;
-    private final float MAX_VALUE = 1000;// initializes float, Max Value/Power = 1000
-    private final float MIN_VALUE = 0;//initializes float, Minimum Value/Power = 0
+    public static final double MAX_POSITION = Servo.MAX_POSITION * (120.0/180.0);
+    public static final double MIN_POSITION = Servo.MIN_POSITION;
     Servo intake, pusher;
 
     public Grabber(Servo one, Servo two) { //gets two servos, Servo 1 and Servo 2.

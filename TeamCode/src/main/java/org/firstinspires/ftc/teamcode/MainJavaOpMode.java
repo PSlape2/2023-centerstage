@@ -89,10 +89,10 @@ public class MainJavaOpMode extends LinearOpMode {
 
             // GRABBER CONTROLS
             if (gamepad2.a) {
-                grabber.setIntake(Servo.MAX_POSITION * (120.0/180.0));
+                grabber.setIntake(Grabber.MAX_POSITION);
 
             } else if (gamepad2.b) {
-                grabber.setIntake(Servo.MIN_POSITION);
+                grabber.setIntake(Grabber.MIN_POSITION);
             }
 
             if (gamepad2.x) {

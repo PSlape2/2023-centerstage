@@ -12,6 +12,7 @@ public class DriveAutoOpMode extends LinearOpMode {
     private static final double kTurnSpeed = 0.5;
     private static final double kElevatorExtensionSpeed = 0.3;
     private static final double kElevatorAngleSpeed = 0.3;
+
     private Drivetrain drive;
     private Elevator elevator;
     private Grabber grabber;
@@ -34,14 +35,16 @@ public class DriveAutoOpMode extends LinearOpMode {
         waitForStart();
 
         drive.encoderDrive(kDriveSpeed, 10, 10, 5);
+        drive.encoderDrive(kTurnSpeed, -10, 10, 5);
 
-                // 28 counts per revolution, 2.66 revolutions to max
-        elevator.setAngle(56, kElevatorAngleSpeed);
-        elevator.setExtension(56, kElevatorExtensionSpeed);
+                // about 1000 counts per revolution, 2.66 revolutions to max
+        elevator.setAngle(1000, kElevatorAngleSpeed);
+        elevator.setExtension(1000, kElevatorExtensionSpeed);
 
-        grabber.setIntake(Servo.MIN_POSITION);
+        grabber.setIntake(Grabber.MIN_POSITION);
 
         elevator.setExtension(0, kElevatorExtensionSpeed);
         elevator.setAngle(0, kElevatorAngleSpeed);
+        grabber.setIntake(Grabber.MAX_POSITION);
     }
 }
