@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.checkerframework.checker.units.qual.C;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 // FIELD CENTRIC
 public class Drivetrain {
@@ -26,7 +28,7 @@ public class Drivetrain {
         imu = imuIn;
 
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,
@@ -151,6 +153,10 @@ public class Drivetrain {
 
     public void imuResetYaw() {
         imu.resetYaw();
+    }
+
+    public YawPitchRollAngles imuGetYawAngles() {
+        return imu.getRobotYawPitchRollAngles();
     }
 
     public double getRightPosition() {

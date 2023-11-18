@@ -57,19 +57,24 @@ public class MainJavaOpMode extends LinearOpMode {
 
             int mode = drivetrain.getMode();
 
+            telemetry.addData("imu yaw: ", drivetrain.imuGetYawAngles());
+
             if(mode == 0) {
                 drivetrain.tankDrive(y1, y2);
+                telemetry.addData("Drive Mode: ", "Tank");
             }  else if(mode == 1) {
                 drivetrain.mecanumDrive(y1, x, rx);
+                telemetry.addData("Drive Mode: ", "Mecanum");
             } else if(mode == 2) {
                 drivetrain.move(y1, x, rx, 1);
+                telemetry.addData("Drive Mode: ", "Field-Centric 100%");
             } else if (mode == 3) {
                 drivetrain.move(y1, x, rx, 0.5);
+                telemetry.addData("Drive Mode: ", "Field-Centric 50%");
             } else {
                 drivetrain.robotCentricMove(y1, x, rx);
+                telemetry.addData("Drive Mode: ", "Robot-Centric");
             }
-
-            telemetry.addData("Drive Mode: ", mode);
 
             if (gamepad1.triangle) {
                 if (drivetrain.getMode() + 1 > 4) {
@@ -77,7 +82,7 @@ public class MainJavaOpMode extends LinearOpMode {
                 } else {
                     drivetrain.setMode(drivetrain.getMode() + 1);
                 }
-                sleep(500);
+                sleep(100);
             }
 
             // GRABBER CONTROLS
