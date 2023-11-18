@@ -6,10 +6,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
+// TODO: back right should be inverted for strafe
+
 @TeleOp
 public class MainJavaOpMode extends LinearOpMode {
     private static final int EXTENDED = 11000;
-    // TODO: Change the retracted constant to the proper value
     private static final int RETRACTED = 0;
     private final int MAX_EXTEND = 2600;
     private final int MIN_EXTEND = -1000;
@@ -76,6 +77,7 @@ public class MainJavaOpMode extends LinearOpMode {
                 } else {
                     drivetrain.setMode(drivetrain.getMode() + 1);
                 }
+                sleep(500);
             }
 
             // GRABBER CONTROLS
