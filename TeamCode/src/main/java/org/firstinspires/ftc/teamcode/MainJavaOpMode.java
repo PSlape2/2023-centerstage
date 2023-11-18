@@ -11,13 +11,13 @@ public class MainJavaOpMode extends LinearOpMode {
     private static final int EXTENDED = 11000;
     // TODO: Change the retracted constant to the proper value
     private static final int RETRACTED = 0;
-    private final int kMaxExtension = 1000;
-    private final int kMinExtension = 0;
-    private final int kMaxAngle = 1000;
-    private final int kMinAngle = 0;
-    private final int ELEVATOR_MAX = 1000;
+    private final int MAX_EXTEND = 2600;
+    private final int MIN_EXTEND = -1000;
+    private final int MAX_ANGLE = 10000;
+    private final int MIN_ANGLE = -15000;
+    private final int ELEVATOR_MAX = 10000;
     // initializes float that = 10000
-    private final int ELEVATOR_MIN = 0;
+    private final int ELEVATOR_MIN = -10000;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -45,25 +45,50 @@ public class MainJavaOpMode extends LinearOpMode {
             if (isStopRequested()) return;
 
             // DRIVETRAIN CONTROLS
-            double y = -gamepad1.left_stick_y;
+            double y1 = -gamepad1.left_stick_y;
             double x = gamepad1.left_stick_x;
             double rx = gamepad1.right_stick_x;
+            double y2 = -gamepad1.right_stick_y;
+
             if (gamepad1.options) {
                 drivetrain.imuResetYaw();
             }
 
-            drivetrain.move(y, x, rx);
+            int mode = drivetrain.getMode();
+
+            if(mode == 0) {
+                drivetrain.tankDrive(y1, y2);
+            }  else if(mode == 1) {
+                drivetrain.mecanumDrive(y1, x, rx);
+            } else if(mode == 2) {
+                drivetrain.move(y1, x, rx);
+            } else {
+                drivetrain.robotCentricMove(y1, x, rx);
+            }
+
+            telemetry.addData("Drive Mode: ", mode);
+
+            if(gamepad1.triangle) {
+                drivetrain.setMode(0);
+            } else if(gamepad1.circle) {
+                drivetrain.setMode(1);
+            } else if(gamepad1.square) {
+                drivetrain.setMode(2);
+            } else if(gamepad1.left_bumper) {
+                drivetrain.setMode(3);
+            }
 
             // GRABBER CONTROLS
             if (gamepad2.a) {
-                grabber.setPosition(Servo.MAX_POSITION);
+                grabber.setPosition(Servo.MAX_POSITION * (60.0/180.0));
+
             } else if (gamepad2.b) {
                 grabber.setPosition(Servo.MIN_POSITION);
             }
 
             // CLIMB CONTROLS
-            telemetry.addData("Left Motor Position", climb.getLeftPosition());
-            telemetry.addData("Right Motor Position", climb.getRightPosition());
+            telemetry.addData("Left Climb Position", climb.getLeftPosition());
+            telemetry.addData("Right Climb Position", climb.getRightPosition());
 
             if (gamepad2.back) {
                 climb.resetEncoders();
@@ -94,23 +119,22 @@ public class MainJavaOpMode extends LinearOpMode {
             float angleInput = -gamepad2.right_stick_y;
 
             if (extendInput > 0.1)  {
-                elevator.setExtension(kMaxExtension, 0.3);
+                elevator.setExtension(MAX_EXTEND, 0.3);
+            } else if (extendInput < -0.1) {
+                elevator.setExtension(MIN_EXTEND, 0.3);
+            } else {
+                elevator.stopExtend();
             }
-            // if the motor position is less than  or equal to 0 and the joystick value is greater than 0 set the motor power to the joystick value
-            else if (extendInput < -0.1) {
-                elevator.setExtension(kMinExtension, 0.3);
-            }
-//            else {
-//                elevator.setExtension(elevator.getAnglePos(), 0.2);
-//            }
-            // if the motor position is greater or equal to 1000 and the joystick value is less than 0 set the motor power  to the joystick value
+//
+            telemetry.addData("Elevator Extend Position: ", elevator.getExtensionPos());
+            telemetry.addData("Elevator Anlge Position: ", elevator.getAnglePos());
 
             if(angleInput > 0.1) {
-                elevator.setAngle(kMaxAngle, 0.3);
+                elevator.setAngle(MAX_ANGLE, 0.3);
             } else if(angleInput < -0.1) {
-                elevator.setAngle(kMinAngle, 0.3);
+                elevator.setAngle(MIN_ANGLE, 0.3);
             } else {
-                elevator.setAngle(elevator.getAnglePos(), 0.3);
+                elevator.stopAngle();
             }
 
             telemetry.update();

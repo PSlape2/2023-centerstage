@@ -32,9 +32,9 @@ public class DriveAutoOpMode extends LinearOpMode {
 
         drive.encoderDrive(kDriveSpeed, 10, 10, 5);
 
-                // 28 counts per revolution
-        elevator.setAngle(7, kElevatorAngleSpeed);
-        elevator.setExtension(7, kElevatorExtensionSpeed);
+                // 28 counts per revolution, 2.66 revolutions to max
+        elevator.setAngle(56, kElevatorAngleSpeed);
+        elevator.setExtension(56, kElevatorExtensionSpeed);
 
         elevator.setExtension(0, kElevatorExtensionSpeed);
         elevator.setAngle(0, kElevatorAngleSpeed);

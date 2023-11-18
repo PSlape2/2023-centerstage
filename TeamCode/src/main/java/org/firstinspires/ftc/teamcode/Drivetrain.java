@@ -15,6 +15,9 @@ public class Drivetrain {
     private static final double COUNTS_PER_INCH = 21.99114; // 28 counts per revolution
     private DcMotor frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor;
     private IMU imu;
+    private double frontLeftPower, backLeftPower, frontRightPower, backRightPower;
+    int driveMode;
+
     public Drivetrain(DcMotor frontLeftMotorIn, DcMotor backLeftMotorIn, DcMotor frontRightMotorIn, DcMotor backRightMotorIn, IMU imuIn) {
         frontLeftMotor = frontLeftMotorIn;
         backLeftMotor = backLeftMotorIn;
@@ -29,7 +32,7 @@ public class Drivetrain {
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
         ));
-
+        driveMode = 0;
         imu.initialize(parameters);
     }
 
@@ -40,13 +43,18 @@ public class Drivetrain {
         double frontRightPower = (y - x - rx) / denominator;
         double backRightPower = (y + x - rx) / denominator;
 
+        frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         frontLeftMotor.setPower(frontLeftPower);
         backLeftMotor.setPower(backLeftPower);
         frontRightMotor.setPower(frontRightPower);
         backRightMotor.setPower(backRightPower);
     }
 
-    public void move(double y, double x, double rx) {
+    public void move(double x, double y , double rx) {
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
         double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
@@ -59,21 +67,57 @@ public class Drivetrain {
         rotX *= 1.1; // Counteract imperfect strafing
 
         double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
-        double frontLeftPower = (rotY + rotX + rx) / denominator;
-        double backLeftPower = (rotY - rotX + rx) / denominator;
-        double frontRightPower = (rotY - rotX - rx) / denominator;
-        double backRightPower = (rotY + rotX - rx) / denominator;
+        frontLeftPower = (rotY + rotX + rx) / denominator;
+        backLeftPower = (rotY - rotX + rx) / denominator;
+        frontRightPower = (rotY - rotX - rx) / denominator;
+        backRightPower = (rotY + rotX - rx) / denominator;
 
         frontLeftMotor.setPower(frontLeftPower);
         backLeftMotor.setPower(backLeftPower);
         frontRightMotor.setPower(frontRightPower);
         backRightMotor.setPower(backRightPower);
     }
+    public void tankDrive(double right, double left) {
+        frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        frontLeftMotor.setPower(left);
+        backLeftMotor.setPower(left);
+        frontRightMotor.setPower(right);
+        backRightMotor.setPower(right);
+    }
+    public void strafeDrive(double speed) {
+        frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        frontRightMotor.setPower(-speed);
+        backRightMotor.setPower(speed);
+        frontLeftMotor.setPower(speed);
+        backLeftMotor.setPower(-speed);
+    }
+
+    public void mecanumDrive(double x, double y, double rot) {
+        double denominator = Math.abs(y) + Math.abs(x) + Math.abs(rot);
+        frontRightPower = (y - x - rot) / denominator;
+        backRightPower = (y + x - rot) / denominator;
+        frontLeftPower = (y + x + rot) / denominator;
+        backLeftPower = (y - x + rot) / denominator;
+
+        frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        frontRightMotor.setPower(frontRightPower);
+        backRightMotor.setPower(backRightPower);
+        frontLeftMotor.setPower(frontLeftPower);
+        backLeftMotor.setPower(backLeftPower);
+    }
     public void encoderDrive(double speed, double leftInches, double rightInches, double timeOut) {
-        frontLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        backLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        frontRightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        backRightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         ElapsedTime runtime = new ElapsedTime();
         int leftTarget, rightTarget;
@@ -86,8 +130,14 @@ public class Drivetrain {
         frontLeftMotor.setTargetPosition(leftTarget);
         backLeftMotor.setTargetPosition(leftTarget);
 
+        frontLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backRightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
         frontRightMotor.setPower(speed);
         backRightMotor.setPower(speed);
+
         frontLeftMotor.setPower(speed);
         backLeftMotor.setPower(speed);
 
@@ -108,5 +158,26 @@ public class Drivetrain {
     }
     public double getLeftPosition() {
         return frontLeftMotor.getCurrentPosition();
+    }
+
+    public double getMotorSpeed(int motor) {
+        switch(motor) {
+            case 0:
+                return frontRightPower;
+            case 1:
+                return backRightPower;
+            case 2:
+                return frontLeftPower;
+            case 3:
+                return backLeftPower;
+            default:
+                return 0;
+        }
+    }
+    public void setMode(int mode) {
+        driveMode = mode;
+    }
+    public int getMode() {
+        return driveMode;
     }
 }

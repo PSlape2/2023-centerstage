@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class Elevator {
     private DcMotor extendMotor, angleMotor;
+
+    private static final int MAX_EXTEND = 2600;
     // initializes DC Motor
 
     public Elevator(DcMotor extendMotor, DcMotor angleMotor) {
@@ -27,5 +29,11 @@ public class Elevator {
         angleMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         angleMotor.setPower(pow);
     }
-
+    public void stopExtend() {
+        extendMotor.setTargetPosition(MAX_EXTEND);
+        extendMotor.setPower(0);
+    }
+    public void stopAngle(){
+        angleMotor.setPower(0);
+    }
 }
