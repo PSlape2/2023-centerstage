@@ -28,6 +28,7 @@ public class MainJavaOpMode extends LinearOpMode {
         DcMotor ClimbRight = hardwareMap.get(DcMotor.class, "ClimbRightMotor");
 //        Servo ShooterServo = hardwareMap.get(Servo.class, "ShooterServo");
         Servo GrabberServo = hardwareMap.get(Servo.class, "GrabberServo");
+        Servo GrabberPusherServo = hardwareMap.get(Servo.class, "PusherServo");
         DcMotor frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
         DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
@@ -37,7 +38,7 @@ public class MainJavaOpMode extends LinearOpMode {
         Drivetrain drivetrain = new Drivetrain(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor, imu);
         Elevator elevator = new Elevator(extendMotor, angleMotor);
         Climb climb = new Climb(ClimbLeft, ClimbRight);
-        Grabber grabber = new Grabber(GrabberServo);
+        Grabber grabber = new Grabber(GrabberServo, GrabberPusherServo);
 //        Shooter shooter = new Shooter(ShooterServo);
 
         waitForStart();
@@ -48,6 +49,7 @@ public class MainJavaOpMode extends LinearOpMode {
             // DRIVETRAIN CONTROLS
             double y1 = -gamepad1.left_stick_y;
             double x = gamepad1.left_stick_x;
+
             double rx = gamepad1.right_stick_x;
             double y2 = -gamepad1.right_stick_y;
 
@@ -87,10 +89,17 @@ public class MainJavaOpMode extends LinearOpMode {
 
             // GRABBER CONTROLS
             if (gamepad2.a) {
-                grabber.setPosition(Servo.MAX_POSITION * (120.0/180.0));
+                grabber.setIntake(Servo.MAX_POSITION * (120.0/180.0));
 
             } else if (gamepad2.b) {
-                grabber.setPosition(Servo.MIN_POSITION);
+                grabber.setIntake(Servo.MIN_POSITION);
+            }
+
+            if (gamepad2.x) {
+                grabber.setPusher(Servo.MAX_POSITION);
+
+            } else if (gamepad2.y) {
+                grabber.setPusher(Servo.MIN_POSITION);
             }
 
             // CLIMB CONTROLS

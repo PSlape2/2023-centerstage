@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous(name="Move to Middle Line", group="Robot", preselectTeleOp="MainJavaOpMode")
 public class DriveAutoOpMode extends LinearOpMode {
@@ -13,6 +14,7 @@ public class DriveAutoOpMode extends LinearOpMode {
     private static final double kElevatorAngleSpeed = 0.3;
     private Drivetrain drive;
     private Elevator elevator;
+    private Grabber grabber;
     @Override
     public void runOpMode() throws InterruptedException {
         drive = new Drivetrain(
@@ -24,7 +26,8 @@ public class DriveAutoOpMode extends LinearOpMode {
         );
         elevator = new Elevator(
                 hardwareMap.get(DcMotor.class, "Extend Motor"),
-                hardwareMap.get(DcMotor.class, "Angle Motor")
+                hardwareMap.get(DcMotor.class,
+                        "Angle Motor")
         );
 
 
@@ -35,6 +38,8 @@ public class DriveAutoOpMode extends LinearOpMode {
                 // 28 counts per revolution, 2.66 revolutions to max
         elevator.setAngle(56, kElevatorAngleSpeed);
         elevator.setExtension(56, kElevatorExtensionSpeed);
+
+        grabber.setIntake(Servo.MIN_POSITION);
 
         elevator.setExtension(0, kElevatorExtensionSpeed);
         elevator.setAngle(0, kElevatorAngleSpeed);

@@ -6,7 +6,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 public class GrabberOpMode extends LinearOpMode {
-    private final Grabber grabber = new Grabber(hardwareMap.get(Servo.class, "Servo 1"));//gets Servo class #1 from hardwareMap);
+    private final Grabber grabber = new Grabber(
+            hardwareMap.get(Servo.class, "GrabberServo"),
+            hardwareMap.get(Servo.class, "GrabberPusherServo")
+    );
     @Override
     public void runOpMode() {
 
