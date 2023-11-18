@@ -61,26 +61,26 @@ public class MainJavaOpMode extends LinearOpMode {
             }  else if(mode == 1) {
                 drivetrain.mecanumDrive(y1, x, rx);
             } else if(mode == 2) {
-                drivetrain.move(y1, x, rx);
+                drivetrain.move(y1, x, rx, 1);
+            } else if (mode == 3) {
+                drivetrain.move(y1, x, rx, 0.5);
             } else {
                 drivetrain.robotCentricMove(y1, x, rx);
             }
 
             telemetry.addData("Drive Mode: ", mode);
 
-            if(gamepad1.triangle) {
-                drivetrain.setMode(0);
-            } else if(gamepad1.circle) {
-                drivetrain.setMode(1);
-            } else if(gamepad1.square) {
-                drivetrain.setMode(2);
-            } else if(gamepad1.left_bumper) {
-                drivetrain.setMode(3);
+            if (gamepad1.triangle) {
+                if (drivetrain.getMode() + 1 > 4) {
+                    drivetrain.setMode(0);
+                } else {
+                    drivetrain.setMode(drivetrain.getMode() + 1);
+                }
             }
 
             // GRABBER CONTROLS
             if (gamepad2.a) {
-                grabber.setPosition(Servo.MAX_POSITION * (60.0/180.0));
+                grabber.setPosition(Servo.MAX_POSITION * (120.0/180.0));
 
             } else if (gamepad2.b) {
                 grabber.setPosition(Servo.MIN_POSITION);

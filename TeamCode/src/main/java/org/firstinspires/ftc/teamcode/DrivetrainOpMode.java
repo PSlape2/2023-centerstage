@@ -32,7 +32,7 @@ public class DrivetrainOpMode extends LinearOpMode {
                 telemetry.update();
             }
 
-            drivetrain.move(y, x, rx);
+            drivetrain.move(y, x, rx, 1);
         }
     }
 }

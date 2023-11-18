@@ -54,7 +54,7 @@ public class Drivetrain {
         backRightMotor.setPower(backRightPower);
     }
 
-    public void move(double x, double y , double rx) {
+    public void move(double x, double y , double rx, double speed) {
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
         double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
@@ -72,10 +72,10 @@ public class Drivetrain {
         frontRightPower = (rotY - rotX - rx) / denominator;
         backRightPower = (rotY + rotX - rx) / denominator;
 
-        frontLeftMotor.setPower(frontLeftPower);
-        backLeftMotor.setPower(backLeftPower);
-        frontRightMotor.setPower(frontRightPower);
-        backRightMotor.setPower(backRightPower);
+        frontLeftMotor.setPower(frontLeftPower * speed);
+        backLeftMotor.setPower(backLeftPower * speed);
+        frontRightMotor.setPower(frontRightPower * speed);
+        backRightMotor.setPower(backRightPower * speed);
     }
     public void tankDrive(double right, double left) {
         frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
