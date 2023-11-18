@@ -89,17 +89,17 @@ public class MainJavaOpMode extends LinearOpMode {
 
             // GRABBER CONTROLS
             if (gamepad2.a) {
-                grabber.setIntake(Grabber.MAX_POSITION);
+                grabber.setIntake(Grabber.MAX_INTAKE_POSITION);
 
             } else if (gamepad2.b) {
-                grabber.setIntake(Grabber.MIN_POSITION);
+                grabber.setIntake(Grabber.MIN_INTAKE_POSITION);
             }
 
             if (gamepad2.x) {
-                grabber.setPusher(Servo.MAX_POSITION);
+                grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
 
             } else if (gamepad2.y) {
-                grabber.setPusher(Servo.MIN_POSITION);
+                grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
             }
 
             // CLIMB CONTROLS

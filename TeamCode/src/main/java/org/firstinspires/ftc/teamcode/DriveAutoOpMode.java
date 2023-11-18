@@ -27,12 +27,17 @@ public class DriveAutoOpMode extends LinearOpMode {
         );
         elevator = new Elevator(
                 hardwareMap.get(DcMotor.class, "Extend Motor"),
-                hardwareMap.get(DcMotor.class,
-                        "Angle Motor")
+                hardwareMap.get(DcMotor.class, "Angle Motor")
+        );
+        grabber = new Grabber(
+                hardwareMap.get(Servo.class, "GrabberServo"),
+                hardwareMap.get(Servo.class, "PusherServo")
         );
 
 
         waitForStart();
+
+        grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
 
         drive.encoderDrive(kDriveSpeed, 10, 10, 5);
         drive.encoderDrive(kTurnSpeed, -10, 10, 5);
@@ -41,10 +46,11 @@ public class DriveAutoOpMode extends LinearOpMode {
         elevator.setAngle(1000, kElevatorAngleSpeed);
         elevator.setExtension(1000, kElevatorExtensionSpeed);
 
-        grabber.setIntake(Grabber.MIN_POSITION);
+        grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
+        grabber.setIntake(Grabber.MIN_INTAKE_POSITION);
 
         elevator.setExtension(0, kElevatorExtensionSpeed);
         elevator.setAngle(0, kElevatorAngleSpeed);
-        grabber.setIntake(Grabber.MAX_POSITION);
+        grabber.setIntake(Grabber.MAX_INTAKE_POSITION);
     }
 }
