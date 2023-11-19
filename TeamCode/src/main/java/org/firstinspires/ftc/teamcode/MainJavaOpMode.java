@@ -62,8 +62,8 @@ public class MainJavaOpMode extends LinearOpMode {
             telemetry.addData("imu yaw: ", drivetrain.imuGetYawAngles());
 
             if(mode == 0) {
-                drivetrain.mecanumDrive(y1, x, rx);
-                telemetry.addData("Drive Mode: ", "Mecanum");
+                drivetrain.mecanumDrive(x, y1, rx);
+                telemetry.addData("Drive Mode: ", "Mecanum Drive");
             }  else if(mode == 1) {
                 drivetrain.tankDrive(y1, y2);
                 telemetry.addData("Drive Mode: ", "Tank");
@@ -79,9 +79,15 @@ public class MainJavaOpMode extends LinearOpMode {
             } else if(mode == 5){
                 drivetrain.robotCentricMove(y1, x, rx, 0.5);
                 telemetry.addData("Drive Mode: ", "Robot Centric 50%");
-            } else {
+            } else if(mode == 6){
                 drivetrain.robotCentricMove(y1, x, rx, 0.25);
                 telemetry.addData("Drive Mode: ", "Robot Centric 25%");
+            } else if(mode == 7) {
+                drivetrain.mecanumDrive(x, y1, rx, 0.5);
+                telemetry.addData("Drive Mode: ", "Mecanum Drive 50%");
+            } else if(mode == 8) {
+                drivetrain.mecanumDrive(x, y1, rx, 0.25);
+                telemetry.addData("Drive Mode: ", "Mecanum Drive 25%");
             }
 
             if (gamepad1.triangle) {
@@ -93,6 +99,14 @@ public class MainJavaOpMode extends LinearOpMode {
                     drivetrain.setMode(4);
                 }
                 sleep(100);
+            } else if(gamepad1.left_bumper) {
+                if(drivetrain.getMode() == 0) {
+                    drivetrain.setMode(7);
+                } else if(drivetrain.getMode() == 7) {
+                    drivetrain.setMode(8);
+                } else {
+                    drivetrain.setMode(0);
+                }
             }
 
             //telemetry.addData("Pusher Position", grabber.getPusher());
@@ -152,6 +166,10 @@ public class MainJavaOpMode extends LinearOpMode {
                 elevator.setExtension(MIN_EXTEND, 0.45);
             } else {
                 elevator.stopExtend();
+            }
+
+            if(gamepad2.start) {
+                elevator.resetEncoders();
             }
 //
             telemetry.addData("Elevator Extend Position: ", elevator.getExtensionPos());

@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 // FIELD CENTRIC
 public class Drivetrain {
-    private static final double COUNTS_PER_INCH = 21.99114; // 28 counts per revolution
+    private static final double COUNTS_PER_INCH = 2.199114; // 28 counts per revolution
     private final DcMotor frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor;
     private final IMU imu;
     private double frontLeftPower, backLeftPower, frontRightPower, backRightPower;
@@ -158,8 +158,8 @@ public class Drivetrain {
         ElapsedTime runtime = new ElapsedTime();
         int leftTarget, rightTarget;
 
-        leftTarget = frontLeftMotor.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-        rightTarget = frontRightMotor.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+        leftTarget = frontLeftMotor.getCurrentPosition() + (int) (leftInches);
+        rightTarget = frontRightMotor.getCurrentPosition() + (int) (rightInches);
 
         frontRightMotor.setTargetPosition(rightTarget);
         backRightMotor.setTargetPosition(rightTarget);

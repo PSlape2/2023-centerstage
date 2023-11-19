@@ -36,4 +36,7 @@ public class Elevator {
     public void stopAngle(){
         angleMotor.setPower(0);
     }
+    public void resetEncoders() {
+        extendMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
 }

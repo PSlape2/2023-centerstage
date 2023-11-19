@@ -39,8 +39,8 @@ public class DriveAutoOpMode extends LinearOpMode {
 
         grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
 
-        drive.encoderDrive(kDriveSpeed, 10, 10, 5);
-        drive.encoderDrive(kTurnSpeed, -10, 10, 5);
+        drive.encoderDrive(kDriveSpeed, 1000, 1000, 3);
+        drive.encoderDrive(kTurnSpeed, -1000, 1000, 3);
 
                 // about 1000 counts per revolution, 2.66 revolutions to max
         elevator.setAngle(1000, kElevatorAngleSpeed);
