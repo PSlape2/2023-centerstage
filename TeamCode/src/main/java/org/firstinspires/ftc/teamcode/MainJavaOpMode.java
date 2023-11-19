@@ -61,52 +61,46 @@ public class MainJavaOpMode extends LinearOpMode {
 
             telemetry.addData("imu yaw: ", drivetrain.imuGetYawAngles());
 
-            if(mode == 0) {
-                drivetrain.mecanumDrive(x, y1, rx);
-                telemetry.addData("Drive Mode: ", "Mecanum Drive");
-            }  else if(mode == 1) {
-                drivetrain.tankDrive(y1, y2);
-                telemetry.addData("Drive Mode: ", "Tank");
-            } else if(mode == 2) {
-                drivetrain.move(y1, x, rx, 1);
-                telemetry.addData("Drive Mode: ", "Field-Centric 100%");
-            } else if (mode == 3) {
-                drivetrain.move(y1, x, rx, 0.5);
-                telemetry.addData("Drive Mode: ", "Field-Centric 50%");
-            } else if(mode == 4){
+//            if(mode == 0) {
+//                drivetrain.mecanumDrive(x, y1, rx);
+//                telemetry.addData("Drive Mode: ", "Mecanum Drive");
+//            }  else if(mode == 1) {
+//                drivetrain.tankDrive(y1, y2);
+//                telemetry.addData("Drive Mode: ", "Tank");
+//            } else if(mode == 2) {
+//                drivetrain.move(y1, x, rx, 1);
+//                telemetry.addData("Drive Mode: ", "Field-Centric 100%");
+//            } else if (mode == 3) {
+//                drivetrain.move(y1, x, rx, 0.5);
+//                telemetry.addData("Drive Mode: ", "Field-Centric 50%");
+//            } else if(mode == 4){
+            if (mode == 0) {
                 drivetrain.robotCentricMove(y1, x, rx);
                 telemetry.addData("Drive Mode: ", "Robot-Centric");
-            } else if(mode == 5){
+//            } else if(mode == 5){
+            } else if (mode == 1) {
                 drivetrain.robotCentricMove(y1, x, rx, 0.5);
                 telemetry.addData("Drive Mode: ", "Robot Centric 50%");
-            } else if(mode == 6){
+//            } else if(mode == 6){
+            } else if (mode == 2) {
                 drivetrain.robotCentricMove(y1, x, rx, 0.25);
                 telemetry.addData("Drive Mode: ", "Robot Centric 25%");
-            } else if(mode == 7) {
-                drivetrain.mecanumDrive(x, y1, rx, 0.5);
-                telemetry.addData("Drive Mode: ", "Mecanum Drive 50%");
-            } else if(mode == 8) {
-                drivetrain.mecanumDrive(x, y1, rx, 0.25);
-                telemetry.addData("Drive Mode: ", "Mecanum Drive 25%");
-            }
+//            } else if(mode == 7) {
+//                drivetrain.mecanumDrive(x, y1, rx, 0.5);
+//                telemetry.addData("Drive Mode: ", "Mecanum Drive 50%");
+//            } else if(mode == 8) {
+//                drivetrain.mecanumDrive(x, y1, rx, 0.25);
+//                telemetry.addData("Drive Mode: ", "Mecanum Drive 25%");
+//            }
 
             if (gamepad1.triangle) {
-                if (drivetrain.getMode() == 4) {
-                    drivetrain.setMode(5);
-                } else if(drivetrain.getMode() == 5){
-                    drivetrain.setMode(6);
+//                if (drivetrain.getMode() + 1 > 9) {
+                if (drivetrain.getMode() + 1 > 3)
+                    drivetrain.setMode(0);
                 } else {
-                    drivetrain.setMode(4);
+                    drivetrain.setMode(drivetrain.getMode() + 1);
                 }
                 sleep(100);
-            } else if(gamepad1.left_bumper) {
-                if(drivetrain.getMode() == 0) {
-                    drivetrain.setMode(7);
-                } else if(drivetrain.getMode() == 7) {
-                    drivetrain.setMode(8);
-                } else {
-                    drivetrain.setMode(0);
-                }
             }
 
             //telemetry.addData("Pusher Position", grabber.getPusher());
