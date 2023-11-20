@@ -40,6 +40,13 @@ public class Drivetrain {
 
     public void robotCentricMove(double y, double x, double rx) {
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+
+        /*
+            y is forward, x is sideways, rx is for strafing
+            y is always positive
+            x is same sign on opposite corners
+            rx is same sign on the same side
+         */
         double frontLeftPower = (y + x + rx) / denominator;
         double backLeftPower = (y - x + rx) / denominator;
         double frontRightPower = (y - x - rx) / denominator;
@@ -200,7 +207,7 @@ public class Drivetrain {
         return frontLeftMotor.getCurrentPosition();
     }
 
-    public double getMotorSpeed(int motor) {
+    public double getMotorSpeed(int motor) { // Doesn't work
         switch(motor) {
             case 0:
                 return frontRightPower;

@@ -11,6 +11,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp
 public class MainJavaOpMode extends LinearOpMode {
     private static final int EXTENDED = 11000;
+
+
+
     private static final int RETRACTED = 0;
     private final int MAX_EXTEND = 2600;
     private final int MIN_EXTEND = -1000;
@@ -42,6 +45,8 @@ public class MainJavaOpMode extends LinearOpMode {
 //        Shooter shooter = new Shooter(ShooterServo);
 
         waitForStart();
+
+        grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
 
         while (opModeIsActive()) {
             if (isStopRequested()) return;
@@ -91,11 +96,11 @@ public class MainJavaOpMode extends LinearOpMode {
 //            } else if(mode == 8) {
 //                drivetrain.mecanumDrive(x, y1, rx, 0.25);
 //                telemetry.addData("Drive Mode: ", "Mecanum Drive 25%");
-//            }
+            }
 
             if (gamepad1.triangle) {
 //                if (drivetrain.getMode() + 1 > 9) {
-                if (drivetrain.getMode() + 1 > 3)
+                if (drivetrain.getMode() + 1 > 3) {
                     drivetrain.setMode(0);
                 } else {
                     drivetrain.setMode(drivetrain.getMode() + 1);
@@ -104,7 +109,6 @@ public class MainJavaOpMode extends LinearOpMode {
             }
 
             //telemetry.addData("Pusher Position", grabber.getPusher());
-
             //telemetry.addData("Intake Position", grabber.getIntake());
 
             // GRABBER CONTROLS
