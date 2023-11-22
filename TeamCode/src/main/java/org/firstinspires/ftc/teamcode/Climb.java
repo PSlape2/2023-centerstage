@@ -6,8 +6,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class Climb {
     private final DcMotor DcMotor1;
     private final DcMotor DcMotor2;
-    // TODO: Change the extended constant to the proper value
-
 
     public Climb(DcMotor mot1, DcMotor mot2) {
         DcMotor1 = mot1;
@@ -18,46 +16,15 @@ public class Climb {
         DcMotor2.setPower(pow); // RIGHT MOTOR
     }
 
-    public void stopMotor() {
-        DcMotor1.setPower(0);
-        DcMotor2.setPower(0);
-    }
-    public void setTargetPos(int pos) {
-        DcMotor1.setTargetPosition(pos);
-        DcMotor2.setTargetPosition(pos);
-
-        DcMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        DcMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    }
-
-    public void forceMove(boolean movesUp) {
-        DcMotor1.setPower(1);
-        DcMotor2.setPower(1);
-
-        DcMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        DcMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        if (movesUp) {
-            DcMotor1.setDirection(DcMotorSimple.Direction.FORWARD);
-            DcMotor2.setDirection(DcMotorSimple.Direction.FORWARD);
-        } else {
-            DcMotor1.setDirection(DcMotorSimple.Direction.REVERSE);
-            DcMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
-        }
-    }
-
-    public int getLeftPosition() {
-        return DcMotor1.getCurrentPosition();
-    }
-
-    public int getRightPosition() {
-        return DcMotor2.getCurrentPosition();
-    }
-
-    public void resetEncoders() {
-        DcMotor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        DcMotor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    }
+    /*
+    TODO:
+        void setTargetPos(int targetPos)
+        int getLeftPosition()
+        int getRightPosition()
+        void stopMotor()
+        void forceMove(boolean movesUp)
+        void resetEncoders()
+     */
 }
 /*
 TODO:

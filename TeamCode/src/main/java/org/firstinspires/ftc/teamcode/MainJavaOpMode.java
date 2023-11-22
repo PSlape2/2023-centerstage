@@ -126,25 +126,13 @@ public class MainJavaOpMode extends LinearOpMode {
                 grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
             }
 
-            // CLIMB CONTROLS
-            telemetry.addData("Left Climb Position", climb.getLeftPosition());
-            telemetry.addData("Right Climb Position", climb.getRightPosition());
-
-            if (gamepad2.back) {
-                climb.resetEncoders();
-            } else if (gamepad2.dpad_up && gamepad2.left_bumper) {
-                climb.forceMove(true);
-            } else if (gamepad2.dpad_down && gamepad2.left_bumper) {
-                climb.forceMove(false);
-            } else if (gamepad2.dpad_up) {
-                climb.setTargetPos(EXTENDED);
-                climb.setPower(1);
-            } else if (gamepad2.dpad_down) {
-                climb.setTargetPos(RETRACTED);
-                climb.setPower(1);
-            } else {
-                climb.stopMotor();
-            }
+            /*
+                TODO: CLIMB
+                    back to reset encoders
+                    dpad up for move up
+                    dpad down for move down
+                    left bumper to force
+             */
 
             // SHOOTER CONTROLS - not using for 1st competition
 //            if (gamepad2.x) {

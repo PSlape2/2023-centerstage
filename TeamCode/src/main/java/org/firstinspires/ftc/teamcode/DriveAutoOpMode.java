@@ -34,7 +34,6 @@ public class DriveAutoOpMode extends LinearOpMode {
                 hardwareMap.get(Servo.class, "PusherServo")
         );
 
-
         waitForStart();
 
                 // leftInches and rightInches are not in inches
