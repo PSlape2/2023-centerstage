@@ -14,8 +14,6 @@ public class DriveAutoOpMode extends LinearOpMode {
     private static final double kElevatorAngleSpeed = 0.3;
 
     private Drivetrain drive;
-    private Elevator elevator;
-    private Grabber grabber;
     @Override
     public void runOpMode() throws InterruptedException {
         drive = new Drivetrain(
@@ -24,14 +22,6 @@ public class DriveAutoOpMode extends LinearOpMode {
                 hardwareMap.dcMotor.get("frontRightMotor"),
                 hardwareMap.dcMotor.get("backRightMotor"),
                 hardwareMap.get(IMU.class, "imu")
-        );
-        elevator = new Elevator(
-                hardwareMap.get(DcMotor.class, "Extend Motor"),
-                hardwareMap.get(DcMotor.class, "Angle Motor")
-        );
-        grabber = new Grabber(
-                hardwareMap.get(Servo.class, "GrabberServo"),
-                hardwareMap.get(Servo.class, "PusherServo")
         );
 
         waitForStart();
