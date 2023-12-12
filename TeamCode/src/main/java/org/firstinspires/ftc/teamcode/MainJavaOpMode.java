@@ -52,11 +52,11 @@ public class MainJavaOpMode extends LinearOpMode {
             if (isStopRequested()) return;
 
             // DRIVETRAIN CONTROLS
-            double y1 = -gamepad1.left_stick_y;
-            double x = gamepad1.left_stick_x;
+            double y2 = gamepad1.right_stick_y;
+            double y1 = -gamepad1.right_stick_x;
 
-            double rx = gamepad1.right_stick_x;
-            double y2 = -gamepad1.right_stick_y;
+            double x = gamepad1.left_stick_x;
+            double rx = gamepad1.left_stick_y;
 
             if (gamepad1.options) {
                 drivetrain.imuResetYaw();
