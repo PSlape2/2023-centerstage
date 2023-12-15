@@ -29,9 +29,8 @@ public class MainJavaOpMode extends LinearOpMode {
         DcMotor angleMotor = hardwareMap.get(DcMotor.class, "Angle Motor");
         DcMotor ClimbLeft = hardwareMap.get(DcMotor.class, "ClimbLeftMotor");
         DcMotor ClimbRight = hardwareMap.get(DcMotor.class, "ClimbRightMotor");
-//        Servo ShooterServo = hardwareMap.get(Servo.class, "ShooterServo");
+        Servo ShooterServo = hardwareMap.get(Servo.class, "ShooterServo");
         Servo GrabberServo = hardwareMap.get(Servo.class, "GrabberServo");
-        Servo GrabberPusherServo = hardwareMap.get(Servo.class, "PusherServo");
         DcMotor frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
         DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
@@ -41,8 +40,8 @@ public class MainJavaOpMode extends LinearOpMode {
         Drivetrain drivetrain = new Drivetrain(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor, imu);
         Elevator elevator = new Elevator(extendMotor, angleMotor);
         Climb climb = new Climb(ClimbLeft, ClimbRight);
-        Grabber grabber = new Grabber(GrabberServo, GrabberPusherServo);
-//        Shooter shooter = new Shooter(ShooterServo);
+        Grabber grabber = new Grabber(GrabberServo);
+        Shooter shooter = new Shooter(ShooterServo);
 
         waitForStart();
 
@@ -120,16 +119,16 @@ public class MainJavaOpMode extends LinearOpMode {
             }
             if (gamepad2.back) {
                 elevator.resetEncoders();
+            } else if(gamepad2.dpad_down && gamepad2.left_bumper) {
+                climb.forceMove(false);
+            } else if(gamepad2.dpad_down && gamepad2.left_bumper) {
+                climb.forceMove(true);
             } else if(gamepad2.dpad_up) {
                 climb.setTargetPos(EXTENDED);
                 climb.setPower(0.3);
             } else if(gamepad2.dpad_down) {
                 climb.setTargetPos(RETRACTED);
                 climb.setPower(0.3);
-            } else if(gamepad2.dpad_down && gamepad2.left_bumper) {
-                climb.forceMove(false);
-            } else if(gamepad2.dpad_down && gamepad2.left_bumper) {
-                climb.forceMove(true);
             }
 
             /*

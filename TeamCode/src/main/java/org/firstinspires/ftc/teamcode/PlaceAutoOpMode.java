@@ -30,50 +30,12 @@ public class PlaceAutoOpMode extends LinearOpMode {
                 hardwareMap.get(DcMotor.class, "Angle Motor")
         );
         grabber = new Grabber(
-                hardwareMap.get(Servo.class, "GrabberServo"),
-                hardwareMap.get(Servo.class, "PusherServo")
+                hardwareMap.get(Servo.class, "GrabberServo")
         );
 
 
         waitForStart();
 
         grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
-
-        sleep(250);
-
-                // leftInches and rightInches are not in inches
-        drive.encoderDrive(0.25, 1000, 1000, 0.7);
-        //drive.encoderDrive(kTurnSpeed, -1000, 1000, 3);
-
-        telemetry.addData("Status: ", "Finished Drive");
-        telemetry.update();
-
-        sleep(250);
-
-                // about 1000 counts per revolution, 2.66 revolutions to max (probably)
-        elevator.setAutoAngle(1000);
-        elevator.setAutoExtend(1000);
-
-        telemetry.addData("Status: ", "Extended");
-        telemetry.update();
-
-        sleep(250);
-
-        grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
-        grabber.setIntake(Grabber.MIN_INTAKE_POSITION);
-
-        telemetry.addData("Status: ", "Pixel Placed");
-        telemetry.update();
-
-        sleep(250);
-
-        elevator.setAutoExtend(500);
-        elevator.setAutoAngle(500);
-        grabber.setIntake(Grabber.MAX_INTAKE_POSITION);
-
-        telemetry.addData("Status: ", "Auto Finished");
-        telemetry.update();
-
-        sleep(250);
     }
 }

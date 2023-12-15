@@ -9,7 +9,7 @@ public class Grabber {
     public static final double MIN_PUSHER_POSITION = Servo.MIN_POSITION;
     private final Servo pusher;
 
-    public Grabber(Servo one, Servo two) { //gets two servos, Servo 1 and Servo 2.
+    public Grabber(Servo two) { //gets two servos, Servo 1 and Servo 2.
         pusher = two;
     }
 
