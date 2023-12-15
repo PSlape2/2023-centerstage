@@ -32,8 +32,6 @@ public class PlaceAutoOpMode extends LinearOpMode {
         grabber = new Grabber(
                 hardwareMap.get(Servo.class, "GrabberServo")
         );
-
-
         waitForStart();
 
         grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
