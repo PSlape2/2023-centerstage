@@ -9,7 +9,7 @@ public class Shooter {
     public Shooter(Servo servo1) {
         this.servo1 = servo1;
     }
-    public void setPosition ( double pos) {
+    public void setPosition (double pos) {
         servo1.setPosition(pos);
     }
 }
