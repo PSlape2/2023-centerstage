@@ -112,13 +112,6 @@ public class MainJavaOpMode extends LinearOpMode {
             //telemetry.addData("Intake Position", grabber.getIntake());
 
             // GRABBER CONTROLS
-            if (gamepad2.a) {
-                grabber.setIntake(Grabber.MAX_INTAKE_POSITION);
-
-            } else if (gamepad2.b) {
-                grabber.setIntake(Grabber.MIN_INTAKE_POSITION);
-            }
-
             if (gamepad2.x) {
                 grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
 
@@ -147,12 +140,12 @@ public class MainJavaOpMode extends LinearOpMode {
                     left bumper to force
              */
 
-            // SHOOTER CONTROLS - not using for 1st competition
-//            if (gamepad2.x) {
-//                shooter.setPosition(Servo.MAX_POSITION);
-//            } else {
-//                shooter.setPosition(Servo.MIN_POSITION);
-//            }
+
+            if (gamepad2.right_trigger > 0.25) {
+                shooter.setPosition(Servo.MAX_POSITION);
+            } else {
+                shooter.setPosition(Servo.MIN_POSITION);
+            }
 
             // ELEVATOR CONTROLS
             // while the opmode is active make new float that takes the left stick y value
