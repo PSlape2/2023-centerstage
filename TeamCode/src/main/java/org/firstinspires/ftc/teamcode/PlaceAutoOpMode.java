@@ -8,10 +8,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous(name="Place on Middle Line", group="Robot", preselectTeleOp="MainJavaOpMode")
 public class PlaceAutoOpMode extends LinearOpMode {
-    private static final double kDriveSpeed = 0.6;
-    private static final double kTurnSpeed = 0.5;
-    private static final double kElevatorExtensionSpeed = 0.3;
-    private static final double kElevatorAngleSpeed = 0.3;
+    private static final double SpeedDrive = 0.6;
+    private static final double SpeedTurn = 0.5;
+    private static final double ElevatorExtensionSpeed = 0.3;
+    private static final double ElevatorAngleSpeed = 0.3;
 
     private Drivetrain drive;
     private Elevator elevator;
@@ -35,5 +35,19 @@ public class PlaceAutoOpMode extends LinearOpMode {
         waitForStart();
 
         grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
+
+        sleep(250);
+
+        drive.timeDrive(SpeedDrive, 0.5);
+
+        sleep(250);
+
+        grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
+
+        sleep(500);
     }
 }
+
+
+// set auto angle and set auto extend
+// sleep()
