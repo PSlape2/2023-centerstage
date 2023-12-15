@@ -191,6 +191,38 @@ public class Drivetrain {
         frontRightMotor.setPower(0);
         backRightMotor.setPower(0);
     }
+    public void timeDrive(double rSpeed, double lSpeed, double timeOut) {
+        ElapsedTime runtime = new ElapsedTime();
+
+        frontRightMotor.setPower(rSpeed);
+        backRightMotor.setPower(rSpeed);
+
+        frontLeftMotor.setPower(lSpeed);
+        backLeftMotor.setPower(lSpeed);
+
+        while(runtime.seconds() < timeOut) {}
+
+        frontLeftMotor.setPower(0);
+        backLeftMotor.setPower(0);
+        frontRightMotor.setPower(0);
+        backRightMotor.setPower(0);
+    }
+    public void timeDrive(double speed, double timeOut) {
+        ElapsedTime runtime = new ElapsedTime();
+
+        frontRightMotor.setPower(speed);
+        backRightMotor.setPower(speed);
+
+        frontLeftMotor.setPower(speed);
+        backLeftMotor.setPower(speed);
+
+        while(runtime.seconds() < timeOut) {}
+
+        frontLeftMotor.setPower(0);
+        backLeftMotor.setPower(0);
+        frontRightMotor.setPower(0);
+        backRightMotor.setPower(0);
+    }
 
     public void imuResetYaw() {
         imu.resetYaw();
