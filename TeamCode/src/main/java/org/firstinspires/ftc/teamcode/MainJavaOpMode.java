@@ -52,11 +52,11 @@ public class MainJavaOpMode extends LinearOpMode {
             if (isStopRequested()) return;
 
             // DRIVETRAIN CONTROLS
-            double y1 = -gamepad1.left_stick_y;
-            double x = gamepad1.left_stick_x;
+            double y2 = gamepad1.right_stick_y;
+            double y1 = -gamepad1.right_stick_x;
 
-            double rx = gamepad1.right_stick_x;
-            double y2 = -gamepad1.right_stick_y;
+            double x = gamepad1.left_stick_x;
+            double rx = gamepad1.left_stick_y;
 
             if (gamepad1.options) {
                 drivetrain.imuResetYaw();
@@ -124,6 +124,19 @@ public class MainJavaOpMode extends LinearOpMode {
 
             } else if (gamepad2.y) {
                 grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
+            }
+            if (gamepad2.back) {
+                elevator.resetEncoders();
+            } else if(gamepad2.dpad_up) {
+                climb.setTargetPos(EXTENDED);
+                climb.setPower(0.3);
+            } else if(gamepad2.dpad_down) {
+                climb.setTargetPos(RETRACTED);
+                climb.setPower(0.3);
+            } else if(gamepad2.dpad_down && gamepad2.left_bumper) {
+                climb.forceMove(false);
+            } else if(gamepad2.dpad_down && gamepad2.left_bumper) {
+                climb.forceMove(true);
             }
 
             /*
