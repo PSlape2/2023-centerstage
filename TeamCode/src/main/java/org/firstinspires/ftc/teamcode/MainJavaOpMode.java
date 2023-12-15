@@ -125,6 +125,19 @@ public class MainJavaOpMode extends LinearOpMode {
             } else if (gamepad2.y) {
                 grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
             }
+            if (gamepad2.back) {
+                elevator.resetEncoders();
+            } else if(gamepad2.dpad_up) {
+                climb.setTargetPos(EXTENDED);
+                climb.setPower(0.3);
+            } else if(gamepad2.dpad_down) {
+                climb.setTargetPos(RETRACTED);
+                climb.setPower(0.3);
+            } else if(gamepad2.dpad_down && gamepad2.left_bumper) {
+                climb.forceMove(false);
+            } else if(gamepad2.dpad_down && gamepad2.left_bumper) {
+                climb.forceMove(true);
+            }
 
             /*
                 TODO: CLIMB
