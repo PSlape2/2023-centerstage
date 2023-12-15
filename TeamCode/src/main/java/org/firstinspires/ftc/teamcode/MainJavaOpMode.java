@@ -15,8 +15,8 @@ public class MainJavaOpMode extends LinearOpMode {
 
 
     private static final int RETRACTED = 0;
-    private final int MAX_EXTEND = 2600;
-    private final int MIN_EXTEND = -1000;
+    private final int MAX_EXTEND = -1000;
+    private final int MIN_EXTEND = 2700;
     private final int MAX_ANGLE = 10000;
     private final int MIN_ANGLE = -15000;
     private final int ELEVATOR_MAX = 10000;
@@ -52,10 +52,10 @@ public class MainJavaOpMode extends LinearOpMode {
 
             // DRIVETRAIN CONTROLS
             double y2 = gamepad1.right_stick_y;
-            double y1 = -gamepad1.right_stick_x;
+            double rx = gamepad1.right_stick_x;
 
             double x = gamepad1.left_stick_x;
-            double rx = gamepad1.left_stick_y;
+            double y1 = -gamepad1.left_stick_y;
 
             if (gamepad1.options) {
                 drivetrain.imuResetYaw();
@@ -99,7 +99,7 @@ public class MainJavaOpMode extends LinearOpMode {
 
             if (gamepad1.triangle) {
 //                if (drivetrain.getMode() + 1 > 9) {
-                if (drivetrain.getMode() + 1 > 3) {
+                if (drivetrain.getMode() + 1 > 2) {
                     drivetrain.setMode(0);
                 } else {
                     drivetrain.setMode(drivetrain.getMode() + 1);
@@ -125,10 +125,12 @@ public class MainJavaOpMode extends LinearOpMode {
                 climb.forceMove(true);
             } else if(gamepad2.dpad_up) {
                 climb.setTargetPos(EXTENDED);
-                climb.setPower(0.3);
+                climb.setPower(0.5);
             } else if(gamepad2.dpad_down) {
                 climb.setTargetPos(RETRACTED);
-                climb.setPower(0.3);
+                climb.setPower(0.5);
+            } else {
+                climb.setPower(0);
             }
 
             /*
@@ -148,7 +150,7 @@ public class MainJavaOpMode extends LinearOpMode {
 
             // ELEVATOR CONTROLS
             // while the opmode is active make new float that takes the left stick y value
-            float extendInput = -gamepad2.left_stick_y;
+            float extendInput = gamepad2.left_stick_y;
             float angleInput = -gamepad2.right_stick_y;
 
             if (extendInput > 0.1)  {
