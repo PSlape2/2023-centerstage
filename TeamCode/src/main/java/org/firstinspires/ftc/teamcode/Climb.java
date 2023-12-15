@@ -43,41 +43,5 @@ public class Climb {
        DcMotor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
        DcMotor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
-    /*
-    Replace [motor name] with DcMotor1 or DcMotor2
-
-    DcMotor1 is left, DcMotor2 is right
-    [motor name].setPower(0) to stop
-    [motor name].getCurrentPosition() returns motor position
-    [motor name].setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER) resets encoders
-
-    TODO:
-        void setTargetPos(int targetPo)
-        int getLeftPosition()
-        int getRightPosition()
-        void stopMotor()
-        void forceMove(boolean movesUp)
-        void resetEncoders()
-     */
 }
-/*
-TODO:
-
-Initialize 4 servos using hardwareMap.get(Servo.class, "ServoName")
-
-Use gamepad2 get if the A button is pressed, turn the servos to the max value
-The servos will return to the default value when the butotn is released.
-Set CONSTANT values for the motor speed at the top of the class (use final)
-Turn in, turn out, whole the button is pressed it will repeat over and over and over amd over and over and over and over and over and over and over and over and over .
-
-Telemetry
-
-boolean current is the whether the climb is extended or retracted
-
-if retracted and dpad up is pressed, extend
-if extended and dpad down is pressed, retract
-
-
- */
-
 

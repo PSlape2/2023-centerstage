@@ -207,6 +207,24 @@ public class Drivetrain {
         frontRightMotor.setPower(0);
         backRightMotor.setPower(0);
     }
+
+    public void timeDrive(double frontRightPower, double backRightPower, double frontLeftPower, double backLeftPower, double timeOut) {
+        ElapsedTime runtime = new ElapsedTime();
+
+        frontRightMotor.setPower(frontRightPower);
+        backRightMotor.setPower(backRightPower);
+
+        frontLeftMotor.setPower(frontLeftPower);
+        backLeftMotor.setPower(backLeftPower);
+
+        while(runtime.seconds() < timeOut) {}
+
+        frontLeftMotor.setPower(0);
+        backLeftMotor.setPower(0);
+        frontRightMotor.setPower(0);
+        backRightMotor.setPower(0);
+    }
+
     public void timeDrive(double speed, double timeOut) {
         ElapsedTime runtime = new ElapsedTime();
 

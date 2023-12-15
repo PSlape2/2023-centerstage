@@ -26,9 +26,7 @@ public class DriveAutoOpMode extends LinearOpMode {
 
         waitForStart();
 
-                // leftInches and rightInches are not in inches
-        drive.encoderDrive(kDriveSpeed, 1000, 1000, 0.5);
-        //drive.encoderDrive(kTurnSpeed, -1000, 1000, 3);
+        drive.timeDrive(kDriveSpeed, 0.5);
 
         telemetry.addData("Status: ", "Finished Drive");
         telemetry.update();
