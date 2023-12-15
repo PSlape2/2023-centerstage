@@ -45,7 +45,6 @@ public class PlaceAutoOpMode extends LinearOpMode {
         grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
 
         sleep(500);
-
     }
 }
 
