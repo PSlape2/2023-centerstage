@@ -112,13 +112,6 @@ public class MainJavaOpMode extends LinearOpMode {
             //telemetry.addData("Intake Position", grabber.getIntake());
 
             // GRABBER CONTROLS
-            if (gamepad2.a) {
-                grabber.setIntake(Grabber.MAX_INTAKE_POSITION);
-
-            } else if (gamepad2.b) {
-                grabber.setIntake(Grabber.MIN_INTAKE_POSITION);
-            }
-
             if (gamepad2.x) {
                 grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
 
