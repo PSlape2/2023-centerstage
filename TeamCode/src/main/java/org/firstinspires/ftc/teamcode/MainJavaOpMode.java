@@ -156,9 +156,9 @@ public class MainJavaOpMode extends LinearOpMode {
             float angleInput = -gamepad2.right_stick_y;
 
             if (extendInput > 0.1)  {
-                elevator.setExtension(MIN_EXTEND, 0.45);
+                elevator.setExtension(MIN_EXTEND, 0.75);
             } else if (extendInput < -0.1) {
-                elevator.setExtension(MAX_EXTEND, 0.45);
+                elevator.setExtension(MAX_EXTEND, 0.75);
             } else {
                 elevator.stopExtend();
             }
@@ -171,9 +171,9 @@ public class MainJavaOpMode extends LinearOpMode {
             telemetry.addData("Elevator Angle Position: ", elevator.getAnglePos());
 
             if(angleInput > 0.1) {
-                elevator.setAngle(MAX_ANGLE, 0.45);
+                elevator.setAngle(MAX_ANGLE, 0.75);
             } else if(angleInput < -0.1) {
-                elevator.setAngle(MIN_ANGLE, 0.45);
+                elevator.setAngle(MIN_ANGLE, 0.75);
             } else {
                 elevator.stopAngle();
             }
