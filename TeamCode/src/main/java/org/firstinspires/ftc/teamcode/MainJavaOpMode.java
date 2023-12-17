@@ -10,10 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 public class MainJavaOpMode extends LinearOpMode {
-    private static final int EXTENDED = 11000;
-
-
-
+    private static final int EXTENDED = 12500;
     private static final int RETRACTED = 0;
     private final int MAX_EXTEND = -1000;
     private final int MIN_EXTEND = 2700;
@@ -117,11 +114,16 @@ public class MainJavaOpMode extends LinearOpMode {
             } else if (gamepad2.y) {
                 grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
             }
+
+            telemetry.addData("Climb Right Position", climb.getRightPosition());
+            telemetry.addData("Climb Left Position", climb.getLeftPosition());
+
             if (gamepad2.back) {
-                elevator.resetEncoders();
+//                elevator.resetEncoders();
+                climb.resetEncoders();
             } else if(gamepad2.dpad_down && gamepad2.left_bumper) {
                 climb.forceMove(false);
-            } else if(gamepad2.dpad_down && gamepad2.left_bumper) {
+            } else if(gamepad2.dpad_up && gamepad2.left_bumper) {
                 climb.forceMove(true);
             } else if(gamepad2.dpad_up) {
                 climb.setTargetPos(EXTENDED);
@@ -154,9 +156,9 @@ public class MainJavaOpMode extends LinearOpMode {
             float angleInput = -gamepad2.right_stick_y;
 
             if (extendInput > 0.1)  {
-                elevator.setExtension(MAX_EXTEND, 0.45);
-            } else if (extendInput < -0.1) {
                 elevator.setExtension(MIN_EXTEND, 0.45);
+            } else if (extendInput < -0.1) {
+                elevator.setExtension(MAX_EXTEND, 0.45);
             } else {
                 elevator.stopExtend();
             }

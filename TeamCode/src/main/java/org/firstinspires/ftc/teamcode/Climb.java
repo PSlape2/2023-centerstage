@@ -19,6 +19,8 @@ public class Climb {
        DcMotor2.setTargetPosition(targetPos);
 
        DcMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+       DcMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
     }
     public int getLeftPosition() {
         return DcMotor1.getCurrentPosition();
