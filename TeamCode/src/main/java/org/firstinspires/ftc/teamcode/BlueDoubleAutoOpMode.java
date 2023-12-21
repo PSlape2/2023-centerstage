@@ -6,10 +6,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@Autonomous(name="Place on Middle Line", group="Robot", preselectTeleOp="MainJavaOpMode")
-public class PlaceAutoOpMode extends LinearOpMode {
-    private static final double SpeedDrive = 0.6;
-    private static final double SpeedTurn = 0.5;
+@Autonomous(name="Blue Double Decker :(", group="Robot", preselectTeleOp="MainJavaOpMode")
+public class BlueDoubleAutoOpMode extends LinearOpMode {
+    private static final double SpeedDrive = 0.3;
+    private static final double SpeedTurn = 0.3;
     private static final double ElevatorExtensionSpeed = 0.3;
     private static final double ElevatorAngleSpeed = 0.3;
 
@@ -32,13 +32,43 @@ public class PlaceAutoOpMode extends LinearOpMode {
         grabber = new Grabber(
                 hardwareMap.get(Servo.class, "GrabberServo")
         );
+
         waitForStart();
 
         grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
 
         sleep(250);
 
-        drive.timeDrive(SpeedDrive, 0.5);
+        drive.timeDrive(SpeedDrive, 2.2);
+
+        sleep(250);
+
+        drive.timeDrive(-SpeedTurn, SpeedTurn, 0.2);
+
+        sleep(250);
+
+        grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
+
+        sleep(750);
+
+        grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
+
+        sleep(250);
+
+        drive.timeDrive(-SpeedDrive, 0.2);
+
+        sleep(250);
+
+        drive.timeDrive(SpeedTurn, -SpeedTurn, 2.3);
+
+        sleep(250);
+
+        elevator.setAutoAngle(7500);
+        elevator.setAutoExtend(2500);
+
+        sleep(500);
+
+        drive.timeDrive(SpeedDrive, 2.6);
 
         sleep(250);
 
@@ -47,7 +77,3 @@ public class PlaceAutoOpMode extends LinearOpMode {
         sleep(500);
     }
 }
-
-
-// set auto angle and set auto extend
-// sleep()

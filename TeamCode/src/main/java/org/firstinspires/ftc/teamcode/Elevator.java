@@ -27,7 +27,7 @@ public class Elevator {
     public void setAutoExtend(int targetPosition) {
         extendMotor.setTargetPosition(targetPosition);
         extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        extendMotor.setPower(0.25);
+        extendMotor.setPower(0.75);
         while(extendMotor.isBusy()) {}
         extendMotor.setPower(0);
     }
@@ -39,7 +39,7 @@ public class Elevator {
     public void setAutoAngle(int targetPos) {
         angleMotor.setTargetPosition(targetPos);
         angleMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        angleMotor.setPower(0.35);
+        angleMotor.setPower(0.75);
         while(angleMotor.isBusy()) {}
         angleMotor.setPower(0);
     }

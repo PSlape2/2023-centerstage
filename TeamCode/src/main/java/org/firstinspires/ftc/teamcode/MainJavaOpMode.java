@@ -144,10 +144,10 @@ public class MainJavaOpMode extends LinearOpMode {
              */
 
 
-            if (gamepad2.right_trigger > 0.25) {
-                shooter.setPosition(Servo.MAX_POSITION);
-            } else {
+            if (gamepad2.right_trigger > 0.1) {
                 shooter.setPosition(Servo.MIN_POSITION);
+            } else {
+                shooter.setPosition(Servo.MAX_POSITION);
             }
 
             // ELEVATOR CONTROLS
