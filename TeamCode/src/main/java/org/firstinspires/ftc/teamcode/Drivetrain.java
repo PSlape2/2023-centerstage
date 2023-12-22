@@ -11,10 +11,16 @@ import org.checkerframework.checker.units.qual.C;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 
 // FIELD CENTRIC
 public class Drivetrain {
+    // Add constants to Robot class
     private static final double COUNTS_PER_INCH = 2.199114; // 28 counts per revolution
+    private static final double MAX_METERS_PER_SECOND = 1.0;
+    private static final double ROBOT_WIDTH = 3.0; // meters
+    private static final double CAMERA_HEIGHT = 2.0; // mm
+    private static final double TIME_TO_ROTATE = 2.0 * Math.PI * MAX_METERS_PER_SECOND;
     private final DcMotor frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor;
     private final IMU imu;
     private double frontLeftPower, backLeftPower, frontRightPower, backRightPower;
@@ -240,6 +246,34 @@ public class Drivetrain {
         backLeftMotor.setPower(0);
         frontRightMotor.setPower(0);
         backRightMotor.setPower(0);
+    }
+
+    public void travelTo(Recognition recognition, double speed, double turnSpeed) {
+        double x = (recognition.getLeft() + recognition.getRight()) / 2;
+        double y = (recognition.getTop()  + recognition.getBottom()) / 2;
+
+        double relativeAngle = recognition.estimateAngleToObject(AngleUnit.DEGREES);
+
+
+        double approxSpeed = speed * MAX_METERS_PER_SECOND;
+
+        if(relativeAngle < 0) {
+            timeDrive(
+                    turnSpeed, -turnSpeed,
+                    TIME_TO_ROTATE * Math.abs(relativeAngle / 360.0)
+            );
+        } else if(relativeAngle > 0){
+            timeDrive(
+                    -turnSpeed, turnSpeed,
+                    TIME_TO_ROTATE * Math.abs(relativeAngle / 360.0)
+            );
+        }
+        double distance = recognition.getHeight() * CAMERA_HEIGHT / recognition.getImageHeight();
+        timeDrive(
+                speed,
+                distance / approxSpeed
+
+        );
     }
 
     public void imuResetYaw() {
