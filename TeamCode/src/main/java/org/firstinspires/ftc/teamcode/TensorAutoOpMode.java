@@ -69,7 +69,8 @@ public class TensorAutoOpMode extends LinearOpMode {
                 hardwareMap.get(DcMotor.class, "Angle Motor")
         );
         grabber = new Grabber(
-                hardwareMap.get(Servo.class, "GrabberServo")
+                hardwareMap.get(Servo.class, "GrabberServo1"),
+                hardwareMap.get(Servo.class, "GrabberServo2")
         );
 
         waitForStart();
