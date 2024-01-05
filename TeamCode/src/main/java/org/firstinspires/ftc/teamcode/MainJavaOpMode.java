@@ -28,6 +28,7 @@ public class MainJavaOpMode extends LinearOpMode {
         DcMotor ClimbRight = hardwareMap.get(DcMotor.class, "ClimbRightMotor");
         Servo ShooterServo = hardwareMap.get(Servo.class, "ShooterServo");
         Servo GrabberServo = hardwareMap.get(Servo.class, "GrabberServo");
+        Servo GrabberServo2 = hardwareMap.get(Servo.class, "GrabberServo2");
         DcMotor frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
         DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
@@ -37,7 +38,7 @@ public class MainJavaOpMode extends LinearOpMode {
         Drivetrain drivetrain = new Drivetrain(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor, imu);
         Elevator elevator = new Elevator(extendMotor, angleMotor);
         Climb climb = new Climb(ClimbLeft, ClimbRight);
-        Grabber grabber = new Grabber(GrabberServo);
+        Grabber grabber = new Grabber(GrabberServo, GrabberServo2);
         Shooter shooter = new Shooter(ShooterServo);
 
         waitForStart();
