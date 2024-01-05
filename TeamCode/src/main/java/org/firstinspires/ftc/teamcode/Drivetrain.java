@@ -17,6 +17,10 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 public class Drivetrain {
     // Add constants to Robot class
     private static final double COUNTS_PER_INCH = 2.199114; // 28 counts per revolution
+    private static final double MAX_METERS_PER_SECOND = 1.0;
+    private static final double ROBOT_WIDTH = 0.45724; // meters
+    private static final double CAMERA_HEIGHT = 2.0; // mm
+    private static final double TIME_TO_ROTATE = 2.0 * Math.PI * MAX_METERS_PER_SECOND;
     private final DcMotor frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor;
     private final IMU imu;
     private double frontLeftPower, backLeftPower, frontRightPower, backRightPower;
@@ -39,7 +43,6 @@ public class Drivetrain {
         driveMode = 0;
         imu.initialize(parameters);
     }
-
     public void robotCentricMove(double y, double x, double rx) {
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
 
@@ -163,12 +166,11 @@ public class Drivetrain {
         backLeftMotor.setPower(backLeftPower * speed);
     }
     public void encoderDrive(double speed, double leftInches, double rightInches, double timeOut) {
-
         ElapsedTime runtime = new ElapsedTime();
         int leftTarget, rightTarget;
 
-        leftTarget = frontLeftMotor.getCurrentPosition() + (int) (leftInches);
-        rightTarget = frontRightMotor.getCurrentPosition() + (int) (rightInches);
+        leftTarget = frontLeftMotor.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+        rightTarget = frontRightMotor.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
 
         frontRightMotor.setTargetPosition(rightTarget);
         backRightMotor.setTargetPosition(rightTarget);
@@ -193,6 +195,37 @@ public class Drivetrain {
         frontRightMotor.setPower(0);
         backRightMotor.setPower(0);
     }
+
+    public void encoderDrive(double speed, double leftInches, double rightInches) {
+        int leftTarget, rightTarget;
+
+        leftTarget = frontLeftMotor.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+        rightTarget = frontRightMotor.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+
+        frontRightMotor.setTargetPosition(rightTarget);
+        backRightMotor.setTargetPosition(rightTarget);
+        frontLeftMotor.setTargetPosition(leftTarget);
+        backLeftMotor.setTargetPosition(leftTarget);
+
+        frontLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backRightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        frontRightMotor.setPower(speed);
+        backRightMotor.setPower(speed);
+
+        frontLeftMotor.setPower(speed);
+        backLeftMotor.setPower(speed);
+
+        while(frontLeftMotor.isBusy() || frontRightMotor.isBusy()) {}
+
+        frontLeftMotor.setPower(0);
+        backLeftMotor.setPower(0);
+        frontRightMotor.setPower(0);
+        backRightMotor.setPower(0);
+    }
+
     public void timeDrive(double rSpeed, double lSpeed, double timeOut) {
         ElapsedTime runtime = new ElapsedTime();
 
@@ -242,6 +275,34 @@ public class Drivetrain {
         backLeftMotor.setPower(0);
         frontRightMotor.setPower(0);
         backRightMotor.setPower(0);
+    }
+
+    public void travelTo(Recognition recognition, double speed, double turnSpeed) {
+        double x = (recognition.getLeft() + recognition.getRight()) / 2;
+        double y = (recognition.getTop()  + recognition.getBottom()) / 2;
+
+        double relativeAngle = recognition.estimateAngleToObject(AngleUnit.DEGREES);
+
+
+        double approxSpeed = speed * MAX_METERS_PER_SECOND;
+
+        if(relativeAngle < 0) {
+            timeDrive(
+                    turnSpeed, -turnSpeed,
+                    TIME_TO_ROTATE * Math.abs(relativeAngle / 360.0)
+            );
+        } else if(relativeAngle > 0){
+            timeDrive(
+                    -turnSpeed, turnSpeed,
+                    TIME_TO_ROTATE * Math.abs(relativeAngle / 360.0)
+            );
+        }
+        double distance = recognition.getHeight() * CAMERA_HEIGHT / recognition.getImageHeight();
+        timeDrive(
+                speed,
+                distance / approxSpeed
+
+        );
     }
 
     public void imuResetYaw() {
