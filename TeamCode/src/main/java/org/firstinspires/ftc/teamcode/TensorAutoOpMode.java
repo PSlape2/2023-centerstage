@@ -3,11 +3,11 @@ package org.firstinspires.ftc.teamcode;
 
 import android.util.Size;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
-
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
@@ -17,7 +17,7 @@ import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
 import java.util.List;
 
-
+@Autonomous(name="Pixel Detection Auto", group="Robot", preselectTeleOp="MainJavaOpMode")
 public class TensorAutoOpMode extends LinearOpMode {
     private static final double CAMERA_HEIGHT = 2.0;
     private static final double DRIVE_SPEED = 0.45;
@@ -29,7 +29,7 @@ public class TensorAutoOpMode extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "CenterStage.tflite";
     // TFOD_MODEL_FILE points to a model file stored onboard the Robot Controller's storage,
     // this is used when uploading models directly to the RC using the model upload interface.
-    private static final String TFOD_MODEL_FILE = "//TeamCode/src/tflitemodels/CenterStage.tflite";
+    private static final String TFOD_MODEL_FILE = "../../../../../../../src/tflitemodels/CenterStage.tflite";
     // Define the labels recognized in the model for TFOD (must be in training order!)
     private static final String[] LABELS = {
             "Pixel"
@@ -50,7 +50,7 @@ public class TensorAutoOpMode extends LinearOpMode {
 
         VisionPortal.Builder visBuilder = new VisionPortal.Builder();
 
-        visBuilder.setCamera(hardwareMap.get(WebcamName.class, "Webcam"));
+        visBuilder.setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"));
         visBuilder.setCameraResolution(new Size(1280, 720));
         visBuilder.enableLiveView(true);
         visBuilder.addProcessor(tfod);
