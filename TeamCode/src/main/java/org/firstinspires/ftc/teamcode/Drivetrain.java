@@ -20,7 +20,7 @@ public class Drivetrain {
     private static final double MAX_METERS_PER_SECOND = 1.0;
     private static final double ROBOT_WIDTH = 0.45724; // meters
     private static final double CAMERA_HEIGHT = 2.0; // mm
-    private static final double TIME_TO_ROTATE = 2.0 * Math.PI * MAX_METERS_PER_SECOND;
+    private static final double TIME_TO_ROTATE = 2.0 * Math.PI * MAX_METERS_PER_SECOND * 0.1;
     private final DcMotor frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor;
     private final IMU imu;
     private double frontLeftPower, backLeftPower, frontRightPower, backRightPower;

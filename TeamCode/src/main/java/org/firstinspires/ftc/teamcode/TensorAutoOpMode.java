@@ -29,7 +29,7 @@ public class TensorAutoOpMode extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "CenterStage.tflite";
     // TFOD_MODEL_FILE points to a model file stored onboard the Robot Controller's storage,
     // this is used when uploading models directly to the RC using the model upload interface.
-    private static final String TFOD_MODEL_FILE = "../../../../../../../src/tflitemodels/CenterStage.tflite";
+    private static final String TFOD_MODEL_FILE = "..\\..\\..\\..\\..\\..\\..\\src\\tflitemodels\\CenterStage.tflite";
     // Define the labels recognized in the model for TFOD (must be in training order!)
     private static final String[] LABELS = {
             "Pixel"
@@ -43,14 +43,14 @@ public class TensorAutoOpMode extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         tfod =  new TfodProcessor.Builder()
-                .setModelAssetName(TFOD_MODEL_ASSET)
-                .setModelFileName(TFOD_MODEL_FILE)
-                .setModelLabels(LABELS)
+                //.setModelAssetName(TFOD_MODEL_ASSET)
+                //.setModelFileName(TFOD_MODEL_FILE)
+                //.setModelLabels(LABELS)
                 .build();
 
         VisionPortal.Builder visBuilder = new VisionPortal.Builder();
 
-        visBuilder.setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"));
+        visBuilder.setCamera(hardwareMap.get(WebcamName.class, "Vision"));
         visBuilder.setCameraResolution(new Size(1280, 720));
         visBuilder.enableLiveView(true);
         visBuilder.addProcessor(tfod);
@@ -90,12 +90,15 @@ public class TensorAutoOpMode extends LinearOpMode {
 
         sleep(250);
 
-        drive.travelTo(recognitions.get(0), DRIVE_SPEED, TURN_SPEED);
+        if(recognitions.size() != 0) {
+            drive.travelTo(recognitions.get(0), DRIVE_SPEED, TURN_SPEED);
 
-        sleep(500);
+            sleep(500);
 
-        grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
+            grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
 
-        sleep(500);
+            sleep(500);
+        }
+
     }
 }

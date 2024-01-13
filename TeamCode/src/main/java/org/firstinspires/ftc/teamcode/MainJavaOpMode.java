@@ -27,7 +27,7 @@ public class MainJavaOpMode extends LinearOpMode {
         DcMotor ClimbLeft = hardwareMap.get(DcMotor.class, "ClimbLeftMotor");
         DcMotor ClimbRight = hardwareMap.get(DcMotor.class, "ClimbRightMotor");
         Servo ShooterServo = hardwareMap.get(Servo.class, "ShooterServo");
-        Servo GrabberServo = hardwareMap.get(Servo.class, "GrabberServo");
+        Servo GrabberServo = hardwareMap.get(Servo.class, "GrabberServo1");
         Servo GrabberServo2 = hardwareMap.get(Servo.class, "GrabberServo2");
         DcMotor frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
         DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
@@ -95,7 +95,7 @@ public class MainJavaOpMode extends LinearOpMode {
 //                telemetry.addData("Drive Mode: ", "Mecanum Drive 25%");
             }
 
-            if (gamepad1.triangle) {
+            if (gamepad1.y) {
 //                if (drivetrain.getMode() + 1 > 9) {
                 if (drivetrain.getMode() + 1 > 2) {
                     drivetrain.setMode(0);
@@ -104,16 +104,32 @@ public class MainJavaOpMode extends LinearOpMode {
                 }
                 sleep(100);
             }
+            /*
+            left grabber - Port 0
+            right grabber - Port 2
+            shooter - Port 1
+             */
 
             //telemetry.addData("Pusher Position", grabber.getPusher());
             //telemetry.addData("Intake Position", grabber.getIntake());
 
             // GRABBER CONTROLS
             if (gamepad2.x) {
-                grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
+                if(grabber.getPusher() == Grabber.MAX_PUSHER_POSITION) {
+                    grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
+                } else {
+                    grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
+                }
+                sleep(200);
 
-            } else if (gamepad2.y) {
-                grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
+            }
+            if (gamepad2.y) {
+                if(grabber.getPusher2() == Grabber.MAX_PUSHER_POSITION) {
+                    grabber.setPusher2(Grabber.MIN_PUSHER_POSITION);
+                } else {
+                    grabber.setPusher2(Grabber.MAX_PUSHER_POSITION);
+                }
+                sleep(200);
             }
 
             telemetry.addData("Climb Right Position", climb.getRightPosition());
