@@ -34,7 +34,8 @@ public class BlueBackstageAutoOpMode extends LinearOpMode {
         );
         waitForStart();
 
-        grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
+        grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
+        grabber.setPusher2(Grabber.MIN_PUSHER_POSITION);
 
         sleep(250);
 
@@ -62,7 +63,7 @@ public class BlueBackstageAutoOpMode extends LinearOpMode {
 
         sleep(250);
 
-        grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
+        grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
 
         sleep(500);
 

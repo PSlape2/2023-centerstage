@@ -14,6 +14,8 @@ public class DoNothingAutoOpMode extends LinearOpMode {
 
         while(opModeIsActive()) {
             telemetry.addData("Status: ", "Active");
+            telemetry.speak("Doing Nothing");
+            sleep(1000);
             telemetry.update();
         }
     }

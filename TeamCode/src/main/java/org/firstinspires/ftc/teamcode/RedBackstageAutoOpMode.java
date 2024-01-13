@@ -6,12 +6,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@Autonomous(name="Red Backboard", group="Robot", preselectTeleOp="MainJavaOpMode")
+@Autonomous(name="Red Backboard (DO NOT USE)", group="Robot", preselectTeleOp="MainJavaOpMode")
 public class RedBackstageAutoOpMode extends LinearOpMode {
     private static final double SpeedDrive = 0.3;
     private static final double SpeedTurn = 0.3;
-    private static final double ElevatorExtensionSpeed = 0.3;
-    private static final double ElevatorAngleSpeed = 0.3;
 
     private Drivetrain drive;
     private Elevator elevator;
@@ -32,9 +30,11 @@ public class RedBackstageAutoOpMode extends LinearOpMode {
         grabber = new Grabber(
                 hardwareMap.get(Servo.class, "GrabberServo1"), hardwareMap.get(Servo.class, "GrabberServo2")
         );
+
         waitForStart();
 
-        grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
+        grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
+        grabber.setPusher2(Grabber.MIN_PUSHER_POSITION);
 
         sleep(250);
 
@@ -62,7 +62,8 @@ public class RedBackstageAutoOpMode extends LinearOpMode {
 
         sleep(250);
 
-        grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
+        grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
+        grabber.setPusher2(Grabber.MAX_PUSHER_POSITION);
 
         sleep(500);
 
@@ -76,6 +77,6 @@ public class RedBackstageAutoOpMode extends LinearOpMode {
 
         elevator.setAutoAngle(2000);
 
-        sleep(500);
+        sleep(250);
     }
 }

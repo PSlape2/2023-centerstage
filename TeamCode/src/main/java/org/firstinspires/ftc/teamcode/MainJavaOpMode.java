@@ -41,9 +41,14 @@ public class MainJavaOpMode extends LinearOpMode {
         Grabber grabber = new Grabber(GrabberServo, GrabberServo2);
         Shooter shooter = new Shooter(ShooterServo);
 
+        telemetry.speak("meow");
+
         waitForStart();
 
+        telemetry.speak("meow meow");
+
         grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
+        grabber.setPusher2(Grabber.MIN_PUSHER_POSITION);
 
         while (opModeIsActive()) {
             if (isStopRequested()) return;
@@ -110,8 +115,8 @@ public class MainJavaOpMode extends LinearOpMode {
             shooter - Port 1
              */
 
-            //telemetry.addData("Pusher Position", grabber.getPusher());
-            //telemetry.addData("Intake Position", grabber.getIntake());
+            telemetry.addData("Pusher 1 Position: ", grabber.getPusher());
+            telemetry.addData("Pusher 2 Position: ", grabber.getPusher2());
 
             // GRABBER CONTROLS
             if (gamepad2.x) {

@@ -10,8 +10,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class BlueDoubleAutoOpMode extends LinearOpMode {
     private static final double SpeedDrive = 0.3;
     private static final double SpeedTurn = 0.3;
-    private static final double ElevatorExtensionSpeed = 0.3;
-    private static final double ElevatorAngleSpeed = 0.3;
 
     private Drivetrain drive;
     private Elevator elevator;
@@ -35,7 +33,8 @@ public class BlueDoubleAutoOpMode extends LinearOpMode {
 
         waitForStart();
 
-        grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
+        grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
+        grabber.setPusher2(Grabber.MIN_PUSHER_POSITION);
 
         sleep(250);
 
@@ -47,11 +46,11 @@ public class BlueDoubleAutoOpMode extends LinearOpMode {
 
         sleep(250);
 
-        grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
+        grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
 
         sleep(750);
 
-        grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
+        grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
 
         sleep(250);
 
@@ -63,16 +62,32 @@ public class BlueDoubleAutoOpMode extends LinearOpMode {
 
         sleep(250);
 
-        elevator.setAutoAngle(7500);
+        elevator.setAutoAngle(7800);
         elevator.setAutoExtend(2500);
 
         sleep(500);
 
-        drive.timeDrive(SpeedDrive, 2.6);
+        drive.timeDrive(SpeedDrive, 2.5);
 
         sleep(250);
 
-        grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
+        grabber.setPusher2(Grabber.MAX_PUSHER_POSITION);
+
+        sleep(500);
+
+        drive.timeDrive(-SpeedDrive, 0.5);
+
+        sleep(250);
+
+        grabber.setPusher2(Grabber.MIN_PUSHER_POSITION);
+
+        sleep(250);
+
+        drive.timeDrive(-SpeedDrive, SpeedDrive, SpeedDrive, -SpeedDrive, 2);
+
+        sleep(250);
+
+        drive.timeDrive(SpeedDrive, 1);
 
         sleep(500);
     }
