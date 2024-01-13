@@ -61,7 +61,7 @@ public class MainJavaOpMode extends LinearOpMode {
 
             int mode = drivetrain.getMode();
 
-            telemetry.addData("imu yaw: ", drivetrain.imuGetYawAngles());
+            //telemetry.addData("imu yaw: ", drivetrain.imuGetYawAngles());
 
 //            if(mode == 0) {
 //                drivetrain.mecanumDrive(x, y1, rx);
@@ -136,7 +136,6 @@ public class MainJavaOpMode extends LinearOpMode {
             telemetry.addData("Climb Left Position", climb.getLeftPosition());
 
             if (gamepad2.back) {
-//                elevator.resetEncoders();
                 climb.resetEncoders();
             } else if(gamepad2.dpad_down && gamepad2.left_bumper) {
                 climb.forceMove(false);
