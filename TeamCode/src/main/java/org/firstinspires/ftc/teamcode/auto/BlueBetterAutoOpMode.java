@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.auto;
 
 
 import android.util.Size;
@@ -10,15 +10,19 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.Elevator;
+import org.firstinspires.ftc.teamcode.subsystems.Grabber;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
 
 import java.util.List;
 
-@Autonomous(name="Pixel Detection Auto", group="Robot", preselectTeleOp="MainJavaOpMode")
-public class TensorAutoOpMode extends LinearOpMode {
+@Autonomous(name="Blue TFOD + Tags", group="Robot", preselectTeleOp="MainJavaOpMode")
+public class BlueBetterAutoOpMode extends LinearOpMode {
     private static final double CAMERA_HEIGHT = 2.0;
     private static final double DRIVE_SPEED = 0.45;
     private static final double TURN_SPEED = 0.3;
@@ -42,6 +46,15 @@ public class TensorAutoOpMode extends LinearOpMode {
     private Grabber grabber;
     @Override
     public void runOpMode() throws InterruptedException {
+        int tagToPos;
+        /* -----  tagToPos value  ------
+
+        Left To Right:
+            BLUE: 1, 2, 3
+            RED: 4, 5, 6
+
+         */
+
         tfod =  new TfodProcessor.Builder()
                 //.setModelAssetName(TFOD_MODEL_ASSET)
                 //.setModelFileName(TFOD_MODEL_FILE)
@@ -75,6 +88,11 @@ public class TensorAutoOpMode extends LinearOpMode {
 
         waitForStart();
 
+        grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
+        grabber.setPusher2(Grabber.MIN_PUSHER_POSITION);
+
+        drive.encoderDrive(DRIVE_SPEED, 20, 20);
+
         List<Recognition> recognitions = tfod.getRecognitions();
         for(Recognition recog : recognitions) {
             double objX = (recog.getLeft() + recog.getRight()) / 2;
@@ -85,19 +103,58 @@ public class TensorAutoOpMode extends LinearOpMode {
             telemetry.addData("Image", "%s (%.0f %% Conf.)", recog.getLabel(), recog.getConfidence() * 100);
             telemetry.addData("- Position", "%.0f / %.0f", objX, objY);
             telemetry.addData("- Size", "%.0f x %.0f", recog.getWidth(), recog.getHeight());
+            telemetry.addData("- Angle: ", recog.estimateAngleToObject(AngleUnit.DEGREES));
         }
-        grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
 
         sleep(250);
 
         if(recognitions.size() != 0) {
-            drive.travelTo(recognitions.get(0), DRIVE_SPEED, TURN_SPEED);
+            Recognition recog = recognitions.get(0);
+            double angle = recog.estimateAngleToObject(AngleUnit.DEGREES);
+
+            if(angle > 10) {
+                tagToPos = 1;
+            } else if(angle < -10) {
+                tagToPos = 3;
+            } else {
+                tagToPos = 2;
+            }
+
+            drive.travelTo(recog, DRIVE_SPEED, TURN_SPEED);
 
             sleep(500);
 
-            grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
+            grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
 
             sleep(500);
+
+            drive.turn(-90, TURN_SPEED);
+
+            sleep(250);
+
+            switch(tagToPos) {
+                case 1:
+                    drive.encoderStrafe(DRIVE_SPEED, -5);
+                    break;
+                case 3:
+                    drive.encoderStrafe(DRIVE_SPEED, 5);
+                    break;
+            }
+
+            sleep(250);
+
+            elevator.setAutoAngle(7800);
+            elevator.setAutoExtend(2500);
+
+            sleep(250);
+
+            drive.encoderDrive(DRIVE_SPEED, 45, 45);
+
+            sleep(250);
+
+            grabber.setPusher2(Grabber.MAX_PUSHER_POSITION);
+
+            sleep(250);
         }
 
     }
