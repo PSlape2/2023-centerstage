@@ -23,10 +23,8 @@ import java.util.List;
 
 @Autonomous(name="Blue TFOD + Tags", group="Robot", preselectTeleOp="MainJavaOpMode")
 public class BlueBetterAutoOpMode extends LinearOpMode {
-    private static final double CAMERA_HEIGHT = 2.0;
     private static final double DRIVE_SPEED = 0.45;
     private static final double TURN_SPEED = 0.3;
-    private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
     // TFOD_MODEL_ASSET points to a model file stored in the project Asset location,
     // this is only used for Android Studio when using models in Assets.

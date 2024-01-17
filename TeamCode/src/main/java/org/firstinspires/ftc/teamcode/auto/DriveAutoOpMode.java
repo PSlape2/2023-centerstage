@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 
-@Autonomous(name="Move to Middle Line", group="Robot", preselectTeleOp="MainJavaOpMode")
+//@Autonomous(name="Move to Middle Line", group="Robot", preselectTeleOp="MainJavaOpMode")
 public class DriveAutoOpMode extends LinearOpMode {
     private static final double kDriveSpeed = 0.6;
     private static final double kTurnSpeed = 0.5;

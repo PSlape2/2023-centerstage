@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.subsystems.Grabber;
 
-@Autonomous(name="Place on Right Line", group="Robot", preselectTeleOp="MainJavaOpMode")
+//@Autonomous(name="Place on Right Line", group="Robot", preselectTeleOp="MainJavaOpMode")
 public class RightAutoOpMode extends LinearOpMode {
     private static final double SpeedDrive = 0.3;
     private static final double SpeedTurn = 0.3;
