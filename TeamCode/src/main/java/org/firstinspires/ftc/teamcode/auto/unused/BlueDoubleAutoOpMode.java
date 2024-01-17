@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.auto.unused;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -10,8 +10,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.subsystems.Grabber;
 
-//@Autonomous(name="Red Backboard (DO NOT USE)", group="Robot", preselectTeleOp="MainJavaOpMode")
-public class RedBackstageAutoOpMode extends LinearOpMode {
+//@Autonomous(name="Blue Double Decker :(", group="Robot", preselectTeleOp="MainJavaOpMode")
+public class BlueDoubleAutoOpMode extends LinearOpMode {
     private static final double SpeedDrive = 0.3;
     private static final double SpeedTurn = 0.3;
 
@@ -32,7 +32,7 @@ public class RedBackstageAutoOpMode extends LinearOpMode {
                 hardwareMap.get(DcMotor.class, "Angle Motor")
         );
         grabber = new Grabber(
-                hardwareMap.get(Servo.class, "GrabberServo1"), hardwareMap.get(Servo.class, "GrabberServo2")
+                hardwareMap.get(Servo.class, "GrabberServo1"),hardwareMap.get(Servo.class, "GrabberServo2")
         );
 
         waitForStart();
@@ -42,45 +42,57 @@ public class RedBackstageAutoOpMode extends LinearOpMode {
 
         sleep(250);
 
-        drive.timeDrive(SpeedDrive, 0.75);
+        drive.timeDrive(SpeedDrive, 2.2);
 
         sleep(250);
 
-        drive.timeDrive(-SpeedTurn, SpeedTurn, 2.3);
-
-        sleep(250);
-
-        drive.timeDrive(SpeedDrive, -SpeedDrive, -SpeedDrive, SpeedDrive, 2.4);
-
-        sleep(250);
-
-        elevator.setAutoAngle(7500);
-
-        sleep(250);
-
-        elevator.setAutoExtend(2500);
-
-        sleep(250);
-
-        drive.timeDrive(SpeedDrive, 2.4);
+        drive.timeDrive(-SpeedTurn, SpeedTurn, 0.2);
 
         sleep(250);
 
         grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
+
+        sleep(750);
+
+        grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
+
+        sleep(250);
+
+        drive.timeDrive(-SpeedDrive, 0.2);
+
+        sleep(250);
+
+        drive.timeDrive(SpeedTurn, -SpeedTurn, 2.3);
+
+        sleep(250);
+
+        elevator.setAutoAngle(7800);
+        elevator.setAutoExtend(2500);
+
+        sleep(500);
+
+        drive.timeDrive(SpeedDrive, 2.5);
+
+        sleep(250);
+
         grabber.setPusher2(Grabber.MAX_PUSHER_POSITION);
 
         sleep(500);
 
-        drive.timeDrive(-SpeedDrive, 0.25);
+        drive.timeDrive(-SpeedDrive, 0.5);
 
         sleep(250);
 
-        elevator.setAutoExtend(800);
+        grabber.setPusher2(Grabber.MIN_PUSHER_POSITION);
 
         sleep(250);
 
-        elevator.setAutoAngle(2000);
+        drive.timeDrive(-SpeedDrive, SpeedDrive, SpeedDrive, -SpeedDrive, 2);
 
         sleep(250);
+
+        drive.timeDrive(SpeedDrive, 1);
+
+        sleep(500);
     }
 }

@@ -53,6 +53,10 @@ public class CenterAutoOpMode extends LinearOpMode {
 
         sleep(250);
 
+        elevator.setAutoExtend(500);
+
+        sleep(250);
+
         grabber.setPusher2(Grabber.MAX_PUSHER_POSITION);
 
 

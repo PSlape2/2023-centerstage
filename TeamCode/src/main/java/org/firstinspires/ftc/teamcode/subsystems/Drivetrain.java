@@ -239,17 +239,10 @@ public class Drivetrain {
         int frontRightTarget = frontRightMotor.getCurrentPosition();
         int backRightTarget = backRightMotor.getCurrentPosition();
 
-        if(inches > 0) {
-            frontLeftTarget += (int) (inches * COUNTS_PER_INCH);
-            backLeftTarget -= (int) (inches * COUNTS_PER_INCH);
-            frontRightTarget -= (int) (inches * COUNTS_PER_INCH);
-            backRightTarget += (int) (inches * COUNTS_PER_INCH);
-        } else {
-            frontLeftTarget -= (int) (inches * COUNTS_PER_INCH);
-            backLeftTarget += (int) (inches * COUNTS_PER_INCH);
-            frontRightTarget += (int) (inches * COUNTS_PER_INCH);
-            backRightTarget -= (int) (inches * COUNTS_PER_INCH);
-        }
+        frontLeftTarget += (int) (inches * COUNTS_PER_INCH);
+        backLeftTarget -= (int) (inches * COUNTS_PER_INCH);
+        frontRightTarget -= (int) (inches * COUNTS_PER_INCH);
+        backRightTarget += (int) (inches * COUNTS_PER_INCH);
 
         frontLeftMotor.setTargetPosition(frontLeftTarget);
         backLeftMotor.setTargetPosition(backLeftTarget);

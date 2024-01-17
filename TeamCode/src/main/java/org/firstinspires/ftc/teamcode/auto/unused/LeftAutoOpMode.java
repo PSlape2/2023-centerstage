@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.auto.unused;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -10,8 +10,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.subsystems.Grabber;
 
-//@Autonomous(name="Place on Right Line", group="Robot", preselectTeleOp="MainJavaOpMode")
-public class RightAutoOpMode extends LinearOpMode {
+//@Autonomous(name="Place on Left Line", group="Robot", preselectTeleOp="MainJavaOpMode")
+public class LeftAutoOpMode extends LinearOpMode {
     private static final double SpeedDrive = 0.3;
     private static final double SpeedTurn = 0.3;
     private static final double ElevatorExtensionSpeed = 0.3;
@@ -46,7 +46,7 @@ public class RightAutoOpMode extends LinearOpMode {
 
         sleep(250);
 
-        drive.timeDrive(0,SpeedTurn, 1.8);
+        drive.timeDrive(SpeedTurn, 0, 1.8);
 
         grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
 

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.auto.unused;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -10,10 +10,10 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.subsystems.Grabber;
 
-//@Autonomous(name="Red FINAL", group="Robot", preselectTeleOp="MainJavaOpMode")
-public class RedDoubleAutoOpMode extends LinearOpMode {
+//@Autonomous(name="Place on Right Line", group="Robot", preselectTeleOp="MainJavaOpMode")
+public class RightAutoOpMode extends LinearOpMode {
     private static final double SpeedDrive = 0.3;
-    private static final double SpeedTurn = 0.5;
+    private static final double SpeedTurn = 0.3;
     private static final double ElevatorExtensionSpeed = 0.3;
     private static final double ElevatorAngleSpeed = 0.3;
 
@@ -38,65 +38,17 @@ public class RedDoubleAutoOpMode extends LinearOpMode {
         );
         waitForStart();
 
-        grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
-        grabber.setPusher2(Grabber.MIN_PUSHER_POSITION);
-
-        sleep(250);
-
-        drive.timeDrive(SpeedDrive, 1.6);
-
-        sleep(250);
-
-        drive.timeDrive(SpeedDrive, -SpeedDrive, 0.2);
-
-        sleep(250);
-
         grabber.setPusher(Grabber.MIN_PUSHER_POSITION);
-
-        sleep(750);
-
-        grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
-
-        sleep(250);
-
-        drive.timeDrive(-SpeedDrive, 0.2);
-
-        sleep(250);
-
-        drive.timeDrive(-SpeedDrive, SpeedDrive, 2.2);
-
-        sleep(250);
-
-        elevator.setAutoAngle(7800);
-        elevator.setAutoExtend(2500);
-
-        sleep(500);
-
-        drive.timeDrive(SpeedDrive, 2.5);
-
-        sleep(250);
-
-        grabber.setPusher2(Grabber.MAX_PUSHER_POSITION);
-
-        sleep(500);
-
-        drive.timeDrive(-SpeedDrive, 0.5);
-
-        sleep(250);
-
-        grabber.setPusher2(Grabber.MIN_PUSHER_POSITION);
-
-        sleep(250);
-
-        drive.timeDrive(-SpeedDrive, SpeedDrive, SpeedDrive, -SpeedDrive, 2.6);
-
-        sleep(250);
-
-        elevator.setAutoExtend(500);
 
         sleep(250);
 
         drive.timeDrive(SpeedDrive, 1);
+
+        sleep(250);
+
+        drive.timeDrive(0,SpeedTurn, 1.8);
+
+        grabber.setPusher(Grabber.MAX_PUSHER_POSITION);
 
         sleep(500);
     }

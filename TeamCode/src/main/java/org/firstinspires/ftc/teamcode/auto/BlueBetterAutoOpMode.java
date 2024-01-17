@@ -28,10 +28,10 @@ public class BlueBetterAutoOpMode extends LinearOpMode {
 
     // TFOD_MODEL_ASSET points to a model file stored in the project Asset location,
     // this is only used for Android Studio when using models in Assets.
-    private static final String TFOD_MODEL_ASSET = "CenterStage.tflite";
+    private static final String TFOD_MODEL_ASSET = "Pixel.tflite";
     // TFOD_MODEL_FILE points to a model file stored onboard the Robot Controller's storage,
     // this is used when uploading models directly to the RC using the model upload interface.
-    private static final String TFOD_MODEL_FILE = "..\\..\\..\\..\\..\\..\\..\\src\\tflitemodels\\CenterStage.tflite";
+    private static final String TFOD_MODEL_FILE = "..\\..\\..\\..\\..\\..\\..\\src\\tflitemodels\\Pixel.tflite";
     // Define the labels recognized in the model for TFOD (must be in training order!)
     private static final String[] LABELS = {
             "Pixel"
@@ -153,6 +153,26 @@ public class BlueBetterAutoOpMode extends LinearOpMode {
             grabber.setPusher2(Grabber.MAX_PUSHER_POSITION);
 
             sleep(250);
+
+            switch(tagToPos) {
+                case 1:
+                    drive.encoderStrafe(DRIVE_SPEED, -17.75);
+                    break;
+                case 3:
+                    drive.encoderStrafe(DRIVE_SPEED, -27.75);
+                    break;
+                default:
+                    drive.encoderStrafe(DRIVE_SPEED, -22.75);
+                    break;
+            }
+
+            sleep(250);
+
+            elevator.setAutoExtend(500);
+
+            sleep(250);
+
+            drive.encoderDrive(DRIVE_SPEED, 12, 12);
         }
 
     }
